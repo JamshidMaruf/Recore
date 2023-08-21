@@ -1,0 +1,15 @@
+﻿using Recore.Domain.Enums;
+using Recore.Service.DTOs.ProductCategories;
+
+namespace Recore.Service.DTOs.Products;
+
+public class ProductResultDto
+{
+    public long Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public double Quantity { get; set; }
+    public Unit Unit { get; set; }
+    public decimal Price { get; set; }
+    public ProductCategoryResultDto Category { get; set; }
+}
