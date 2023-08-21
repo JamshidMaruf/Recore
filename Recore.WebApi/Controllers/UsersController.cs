@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Recore.Domain.Configurations;
 using Recore.Service.DTOs.Users;
 using Recore.Service.Interfaces;
 using Recore.WebApi.Models;
@@ -54,11 +55,11 @@ public class UsersController : BaseController
 
 
     [HttpGet("get-all")]
-    public async ValueTask<IActionResult> GetAllAsync()
+    public async ValueTask<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.userService.RetrieveAllAsync()
+            Data = await this.userService.RetrieveAllAsync(@params)
         });
 }

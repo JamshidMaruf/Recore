@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Recore.Data.IRepositories;
+using Recore.Domain.Configurations;
 using Recore.Domain.Entities.Users;
 using Recore.Service.DTOs.Users;
 using Recore.Service.Exceptions;
+using Recore.Service.Extensions;
 using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
@@ -67,9 +69,11 @@ public class UserService : IUserService
         return result;
     }
 
-    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync()
+    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var users = await this.repository.SelectAll().ToListAsync();
+        var users = await this.repository.SelectAll()
+            .ToPaginate(@params)
+            .ToListAsync();
         var result = this.mapper.Map<IEnumerable<UserResultDto>>(users);
         return result;
     }

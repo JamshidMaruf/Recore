@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Recore.Data.Migrations
 {
-    public partial class AddedShadowProperty2Migration : Migration
+    public partial class Changedcolumnname : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -84,12 +85,14 @@ namespace Recore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cities",
+                name: "Regions",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
+                    NameUz = table.Column<string>(type: "text", nullable: true),
+                    NameOz = table.Column<string>(type: "text", nullable: true),
+                    NameRu = table.Column<string>(type: "text", nullable: true),
                     CountryId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -97,9 +100,9 @@ namespace Recore.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.PrimaryKey("PK_Regions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cities_Countries_CountryId",
+                        name: "FK_Regions_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
@@ -160,24 +163,26 @@ namespace Recore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Regions",
+                name: "Districts",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    CityId = table.Column<long>(type: "bigint", nullable: false),
+                    NameUz = table.Column<string>(type: "text", nullable: true),
+                    NameOz = table.Column<string>(type: "text", nullable: true),
+                    NameRu = table.Column<string>(type: "text", nullable: true),
+                    RegionId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Regions", x => x.Id);
+                    table.PrimaryKey("PK_Districts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Regions_Cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "Cities",
+                        name: "FK_Districts_Regions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Regions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -193,8 +198,8 @@ namespace Recore.Data.Migrations
                     Home = table.Column<string>(type: "text", nullable: true),
                     DoorCode = table.Column<string>(type: "text", nullable: true),
                     CountryId = table.Column<long>(type: "bigint", nullable: false),
-                    CityId = table.Column<long>(type: "bigint", nullable: false),
                     RegionId = table.Column<long>(type: "bigint", nullable: false),
+                    DistrictId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
@@ -203,15 +208,15 @@ namespace Recore.Data.Migrations
                 {
                     table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addresses_Cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Addresses_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Districts_DistrictId",
+                        column: x => x.DistrictId,
+                        principalTable: "Districts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -299,16 +304,16 @@ namespace Recore.Data.Migrations
                 columns: new[] { "Id", "CreatedAt", "IsDeleted", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1362), false, "Burgers", null },
-                    { 2L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1363), false, "Lavashes", null },
-                    { 3L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1364), false, "Hot-Dogs", null },
-                    { 4L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1365), false, "Sendviches", null },
-                    { 5L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1366), false, "Salats", null },
-                    { 6L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1366), false, "Snacks", null },
-                    { 7L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1367), false, "Pizzas", null },
-                    { 8L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1368), false, "Hot drinks", null },
-                    { 9L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1369), false, "Cold drinks", null },
-                    { 10L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1369), false, "Sauces", null }
+                    { 1L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3629), false, "Burgers", null },
+                    { 2L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3630), false, "Lavashes", null },
+                    { 3L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3631), false, "Hot-Dogs", null },
+                    { 4L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3632), false, "Sendviches", null },
+                    { 5L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3632), false, "Salats", null },
+                    { 6L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3633), false, "Snacks", null },
+                    { 7L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3634), false, "Pizzas", null },
+                    { 8L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3635), false, "Hot drinks", null },
+                    { 9L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3635), false, "Cold drinks", null },
+                    { 10L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3636), false, "Sauces", null }
                 });
 
             migrationBuilder.InsertData(
@@ -316,17 +321,12 @@ namespace Recore.Data.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedAt", "Description", "IsDeleted", "Name", "Price", "Quantity", "Unit", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1L, 1L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1470), "", false, "Cheeseburger", 24000m, 10.0, 4, null },
-                    { 2L, 8L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1472), "", false, "Coffee", 7000m, 10.0, 4, null },
-                    { 3L, 9L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1473), "", false, "Moxito", 15000m, 10.0, 4, null },
-                    { 4L, 10L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1474), "", false, "Ketchup", 3000m, 10.0, 4, null },
-                    { 5L, 5L, new DateTime(2023, 8, 4, 19, 20, 2, 968, DateTimeKind.Utc).AddTicks(1475), "", false, "Caesar", 23000m, 10.0, 4, null }
+                    { 1L, 1L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3752), "", false, "Cheeseburger", 24000m, 10.0, 4, null },
+                    { 2L, 8L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3754), "", false, "Coffee", 7000m, 10.0, 4, null },
+                    { 3L, 9L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3755), "", false, "Moxito", 15000m, 10.0, 4, null },
+                    { 4L, 10L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3756), "", false, "Ketchup", 3000m, 10.0, 4, null },
+                    { 5L, 5L, new DateTime(2023, 8, 21, 17, 25, 2, 814, DateTimeKind.Utc).AddTicks(3757), "", false, "Caesar", 23000m, 10.0, 4, null }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Addresses_CityId",
-                table: "Addresses",
-                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CountryId",
@@ -334,14 +334,19 @@ namespace Recore.Data.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Addresses_DistrictId",
+                table: "Addresses",
+                column: "DistrictId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Addresses_RegionId",
                 table: "Addresses",
                 column: "RegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cities_CountryId",
-                table: "Cities",
-                column: "CountryId");
+                name: "IX_Districts_RegionId",
+                table: "Districts",
+                column: "RegionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_OrderId",
@@ -374,9 +379,9 @@ namespace Recore.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Regions_CityId",
+                name: "IX_Regions_CountryId",
                 table: "Regions",
-                column: "CityId");
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Suppliers_VehicleId",
@@ -408,13 +413,13 @@ namespace Recore.Data.Migrations
                 name: "ProductCategories");
 
             migrationBuilder.DropTable(
-                name: "Regions");
+                name: "Districts");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");
 
             migrationBuilder.DropTable(
-                name: "Cities");
+                name: "Regions");
 
             migrationBuilder.DropTable(
                 name: "Countries");

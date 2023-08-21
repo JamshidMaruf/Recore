@@ -1,6 +1,6 @@
 ﻿namespace Recore.Domain.Enums;
 
-public enum Payment
+public enum PaymentType
 {
     Cash = 1,
     Humo,

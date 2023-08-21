@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Recore.Data.IRepositories;
+using Recore.Domain.Configurations;
 using Recore.Domain.Entities.Addresses;
 using Recore.Service.DTOs.Countries;
 using Recore.Service.DTOs.Regions;
 using Recore.Service.Exceptions;
+using Recore.Service.Extensions;
 using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
@@ -21,17 +23,21 @@ public class CountryService : ICountryService
     }
     public async Task<bool> SetAsync()
     {
-        string path = @"D:\\Lesson\\Recore\\Recore.Shared\\Files\\countries.json";
-        var source = File.ReadAllText(path);
-        var countries = JsonConvert.DeserializeObject<IEnumerable<CountryCreationDto>>(source);
+		var dbSource = this.repository.SelectAll();
+        if (dbSource.Any())
+            throw new AlreadExistException("Countries are already exist");
 
-        foreach (var country in countries)
-        {
-            var mappedCountry = this.mapper.Map<Country>(country);
-            await this.repository.CreateAsync(mappedCountry);
-            await this.repository.SaveAsync();
-        }
-        return true;
+		string path = @"D:\\Lesson\\Recore\\Recore.Shared\\Files\\countries.json";
+		var source = File.ReadAllText(path);
+		var countries = JsonConvert.DeserializeObject<IEnumerable<CountryCreationDto>>(source);
+
+		foreach (var country in countries)
+		{
+			var mappedCountry = this.mapper.Map<Country>(country);
+			await this.repository.CreateAsync(mappedCountry);
+			await this.repository.SaveAsync();
+		}
+		return true;
     }
 
     public async Task<CountryResultDto> RetrieveByIdAsync(long id)
@@ -44,9 +50,11 @@ public class CountryService : ICountryService
         return mappedCountry;
     }
  
-    public async Task<IEnumerable<CountryResultDto>> RetrieveAllAsync()
+    public async Task<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var countries = await this.repository.SelectAll().ToListAsync();
+        var countries = await this.repository.SelectAll()
+            .ToPaginate(@params)
+            .ToListAsync();
         var result = this.mapper.Map<IEnumerable<CountryResultDto>>(countries);
         return result;
     }

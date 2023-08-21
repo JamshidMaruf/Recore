@@ -20,8 +20,8 @@ public class AppDbContext : DbContext
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Country> Countries { get; set; }
-    public DbSet<Region> Cities { get; set; }
-    public DbSet<District> Regions { get; set; }
+    public DbSet<Region> Regions { get; set; }
+    public DbSet<District> Districts { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
 

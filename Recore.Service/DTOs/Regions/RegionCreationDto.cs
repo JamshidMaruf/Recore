@@ -8,7 +8,7 @@ public class RegionCreationDto
     public long Id { get; set; }
 
     [JsonProperty("name_uz")]
-    public string NameUz { get; set; }
+    public string NameUz { get; set; }  
 
     [JsonProperty("name_oz")]
     public string NameOz { get; set; }

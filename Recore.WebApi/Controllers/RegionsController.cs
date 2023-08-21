@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Recore.Domain.Configurations;
 using Recore.Service.Interfaces;
 using Recore.WebApi.Models;
 
@@ -32,11 +33,11 @@ public class RegionsController : BaseController
 
 
     [HttpGet("get-all")]
-    public async Task<IActionResult> GetAllAsync()
+    public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.regionService.RetrieveAllAsync()
+            Data = await this.regionService.RetrieveAllAsync(@params)
         });
 }
