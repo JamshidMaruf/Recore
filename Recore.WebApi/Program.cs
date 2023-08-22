@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Recore.Data.Contexts;
 using Recore.Data.IRepositories;
 using Recore.Data.Repositories;
@@ -8,20 +10,27 @@ using Recore.Service.Services;
 using Recore.WebApi.Extensions;
 using Recore.WebApi.Middlewares;
 using Serilog;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Add Custom services
 builder.Services.AddServices();
+
+builder.Services.ConfigureSwagger();
+
+// JWT
+builder.Services.AddJwt(builder.Configuration);
 
 // Logger
 var logger = new LoggerConfiguration()

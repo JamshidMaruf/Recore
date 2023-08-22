@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Recore.Data.Contexts;
@@ -11,9 +12,10 @@ using Recore.Data.Contexts;
 namespace Recore.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230822190303_AddedPasswordPropertyForUser")]
+    partial class AddedPasswordPropertyForUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -343,7 +345,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 1L,
                             CategoryId = 1L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9657),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1982),
                             Description = "",
                             IsDeleted = false,
                             Name = "Cheeseburger",
@@ -355,7 +357,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 2L,
                             CategoryId = 8L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9692),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1984),
                             Description = "",
                             IsDeleted = false,
                             Name = "Coffee",
@@ -367,7 +369,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 3L,
                             CategoryId = 9L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9694),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1985),
                             Description = "",
                             IsDeleted = false,
                             Name = "Moxito",
@@ -379,7 +381,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 4L,
                             CategoryId = 10L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9696),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1988),
                             Description = "",
                             IsDeleted = false,
                             Name = "Ketchup",
@@ -391,7 +393,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 5L,
                             CategoryId = 5L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9697),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1990),
                             Description = "",
                             IsDeleted = false,
                             Name = "Caesar",
@@ -429,70 +431,70 @@ namespace Recore.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9451),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1715),
                             IsDeleted = false,
                             Name = "Burgers"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9454),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1717),
                             IsDeleted = false,
                             Name = "Lavashes"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9455),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1718),
                             IsDeleted = false,
                             Name = "Hot-Dogs"
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9456),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1719),
                             IsDeleted = false,
                             Name = "Sendviches"
                         },
                         new
                         {
                             Id = 5L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9457),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1720),
                             IsDeleted = false,
                             Name = "Salats"
                         },
                         new
                         {
                             Id = 6L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9458),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1721),
                             IsDeleted = false,
                             Name = "Snacks"
                         },
                         new
                         {
                             Id = 7L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9459),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1721),
                             IsDeleted = false,
                             Name = "Pizzas"
                         },
                         new
                         {
                             Id = 8L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9460),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1722),
                             IsDeleted = false,
                             Name = "Hot drinks"
                         },
                         new
                         {
                             Id = 9L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9461),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1726),
                             IsDeleted = false,
                             Name = "Cold drinks"
                         },
                         new
                         {
                             Id = 10L,
-                            CreatedAt = new DateTime(2023, 8, 22, 19, 17, 50, 615, DateTimeKind.Utc).AddTicks(9462),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1728),
                             IsDeleted = false,
                             Name = "Sauces"
                         });
