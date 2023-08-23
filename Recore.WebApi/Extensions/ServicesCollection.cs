@@ -21,6 +21,8 @@ public static class ServicesCollection
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IDistrictService, DistrictService>();
 		services.AddScoped<IAuthService, AuthService>();
+		services.AddScoped<IProductService, ProductService>();
+		services.AddScoped<IAttachmentService, AttachmentService>();
         services.AddAutoMapper(typeof(MappingProfile));
     }
 

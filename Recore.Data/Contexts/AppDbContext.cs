@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Recore.Domain.Entities.Addresses;
+using Recore.Domain.Entities.Attachments;
 using Recore.Domain.Entities.Orders;
 using Recore.Domain.Entities.Products;
 using Recore.Domain.Entities.Suppliers;
@@ -24,6 +25,7 @@ public class AppDbContext : DbContext
     public DbSet<District> Districts { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<Attachment> Attachments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -48,12 +50,12 @@ public class AppDbContext : DbContext
             new ProductCategory { Id = 9, Name = "Cold drinks", CreatedAt = DateTime.UtcNow, UpdatedAt = null },
             new ProductCategory { Id = 10, Name = "Sauces", CreatedAt = DateTime.UtcNow, UpdatedAt = null });
 
-        modelBuilder.Entity<Product>().HasData(
-            new Product { Id = 1, Name = "Cheeseburger", CategoryId = 1, Description = "", Unit = Unit.pc, Quantity = 10, Price = 24000, CreatedAt = DateTime.UtcNow, UpdatedAt = null },
-            new Product { Id = 2, Name = "Coffee", CategoryId = 8, Description = "", Unit = Unit.pc, Quantity = 10, Price = 7000, CreatedAt = DateTime.UtcNow, UpdatedAt = null },
-            new Product { Id = 3, Name = "Moxito", CategoryId = 9, Description = "", Unit = Unit.pc, Quantity = 10, Price = 15000, CreatedAt = DateTime.UtcNow, UpdatedAt = null },
-            new Product { Id = 4, Name = "Ketchup", CategoryId = 10, Description = "", Unit = Unit.pc, Quantity = 10, Price = 3000, CreatedAt = DateTime.UtcNow, UpdatedAt = null },
-            new Product { Id = 5, Name = "Caesar", CategoryId = 5, Description = "", Unit = Unit.pc, Quantity = 10, Price = 23000, CreatedAt = DateTime.UtcNow, UpdatedAt = null });
+        //modelBuilder.Entity<Product>().HasData(
+        //    new Product { Id = 1, Name = "Cheeseburger", CategoryId = 1, Description = "", Unit = Unit.pc, Quantity = 10, Price = 24000, CreatedAt = DateTime.UtcNow, UpdatedAt = null },
+        //    new Product { Id = 2, Name = "Coffee", CategoryId = 8, Description = "", Unit = Unit.pc, Quantity = 10, Price = 7000, CreatedAt = DateTime.UtcNow, UpdatedAt = null },
+        //    new Product { Id = 3, Name = "Moxito", CategoryId = 9, Description = "", Unit = Unit.pc, Quantity = 10, Price = 15000, CreatedAt = DateTime.UtcNow, UpdatedAt = null },
+        //    new Product { Id = 4, Name = "Ketchup", CategoryId = 10, Description = "", Unit = Unit.pc, Quantity = 10, Price = 3000, CreatedAt = DateTime.UtcNow, UpdatedAt = null },
+        //    new Product { Id = 5, Name = "Caesar", CategoryId = 5, Description = "", Unit = Unit.pc, Quantity = 10, Price = 23000, CreatedAt = DateTime.UtcNow, UpdatedAt = null });
         #endregion
     }
 }

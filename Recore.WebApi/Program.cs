@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Recore.Data.Contexts;
 using Recore.Data.IRepositories;
 using Recore.Data.Repositories;
+using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
 using Recore.Service.Mappers;
 using Recore.Service.Services;
@@ -42,12 +43,15 @@ builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 
+PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseAuthentication();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 

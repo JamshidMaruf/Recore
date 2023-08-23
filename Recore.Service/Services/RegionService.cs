@@ -25,7 +25,7 @@ public class RegionService : IRegionService
 	{
 		var dbSource = this.repository.SelectAll();
 		if (dbSource.Any())
-			throw new AlreadExistException("Regions are already exist");
+			throw new AlreadyExistException("Regions are already exist");
 		
 		string path = @"D:\Lesson\Recore\Recore.Shared\Files\regions.json";
 

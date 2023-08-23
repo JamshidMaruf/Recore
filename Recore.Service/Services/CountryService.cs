@@ -25,7 +25,7 @@ public class CountryService : ICountryService
     {
 		var dbSource = this.repository.SelectAll();
         if (dbSource.Any())
-            throw new AlreadExistException("Countries are already exist");
+            throw new AlreadyExistException("Countries are already exist");
 
 		string path = @"D:\\Lesson\\Recore\\Recore.Shared\\Files\\countries.json";
 		var source = File.ReadAllText(path);

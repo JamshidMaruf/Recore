@@ -27,7 +27,7 @@ public class DistrictService : IDistrictService
     {
         var dbSource = this.repository.SelectAll();
         if (dbSource.Any())
-            throw new AlreadExistException("Districts are already exist");
+            throw new AlreadyExistException("Districts are already exist");
         
 		string path = @"D:\\Lesson\\Recore\\Recore.Shared\\Files\\districts.json";
 		var source = File.ReadAllText(path);
