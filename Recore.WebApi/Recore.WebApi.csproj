@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Files\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
