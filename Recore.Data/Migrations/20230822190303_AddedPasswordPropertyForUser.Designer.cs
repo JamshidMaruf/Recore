@@ -12,8 +12,8 @@ using Recore.Data.Contexts;
 namespace Recore.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230817191026_AddChangesInAddress")]
-    partial class AddChangesInAddress
+    [Migration("20230822190303_AddedPasswordPropertyForUser")]
+    partial class AddedPasswordPropertyForUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,7 +134,7 @@ namespace Recore.Data.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("Regions");
+                    b.ToTable("Districts");
                 });
 
             modelBuilder.Entity("Recore.Domain.Entities.Addresses.Region", b =>
@@ -170,7 +170,7 @@ namespace Recore.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("Recore.Domain.Entities.Orders.Order", b =>
@@ -196,8 +196,8 @@ namespace Recore.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Payment")
-                        .HasColumnType("integer");
+                    b.Property<long>("PaymentId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("StartAt")
                         .HasColumnType("timestamp with time zone");
@@ -208,6 +208,9 @@ namespace Recore.Data.Migrations
                     b.Property<long>("SupplierId")
                         .HasColumnType("bigint");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -217,6 +220,8 @@ namespace Recore.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("PaymentId");
 
                     b.HasIndex("SupplierId");
 
@@ -251,6 +256,9 @@ namespace Recore.Data.Migrations
                     b.Property<double>("Quantity")
                         .HasColumnType("double precision");
 
+                    b.Property<decimal>("Summ")
+                        .HasColumnType("numeric");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -261,6 +269,34 @@ namespace Recore.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("Recore.Domain.Entities.Payments.Payment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("Recore.Domain.Entities.Products.Product", b =>
@@ -309,7 +345,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 1L,
                             CategoryId = 1L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1267),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1982),
                             Description = "",
                             IsDeleted = false,
                             Name = "Cheeseburger",
@@ -321,7 +357,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 2L,
                             CategoryId = 8L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1268),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1984),
                             Description = "",
                             IsDeleted = false,
                             Name = "Coffee",
@@ -333,7 +369,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 3L,
                             CategoryId = 9L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1269),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1985),
                             Description = "",
                             IsDeleted = false,
                             Name = "Moxito",
@@ -345,7 +381,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 4L,
                             CategoryId = 10L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1270),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1988),
                             Description = "",
                             IsDeleted = false,
                             Name = "Ketchup",
@@ -357,7 +393,7 @@ namespace Recore.Data.Migrations
                         {
                             Id = 5L,
                             CategoryId = 5L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1271),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1990),
                             Description = "",
                             IsDeleted = false,
                             Name = "Caesar",
@@ -395,70 +431,70 @@ namespace Recore.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1140),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1715),
                             IsDeleted = false,
                             Name = "Burgers"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1141),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1717),
                             IsDeleted = false,
                             Name = "Lavashes"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1142),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1718),
                             IsDeleted = false,
                             Name = "Hot-Dogs"
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1143),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1719),
                             IsDeleted = false,
                             Name = "Sendviches"
                         },
                         new
                         {
                             Id = 5L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1144),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1720),
                             IsDeleted = false,
                             Name = "Salats"
                         },
                         new
                         {
                             Id = 6L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1144),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1721),
                             IsDeleted = false,
                             Name = "Snacks"
                         },
                         new
                         {
                             Id = 7L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1145),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1721),
                             IsDeleted = false,
                             Name = "Pizzas"
                         },
                         new
                         {
                             Id = 8L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1146),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1722),
                             IsDeleted = false,
                             Name = "Hot drinks"
                         },
                         new
                         {
                             Id = 9L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1146),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1726),
                             IsDeleted = false,
                             Name = "Cold drinks"
                         },
                         new
                         {
                             Id = 10L,
-                            CreatedAt = new DateTime(2023, 8, 17, 19, 10, 26, 612, DateTimeKind.Utc).AddTicks(1147),
+                            CreatedAt = new DateTime(2023, 8, 22, 19, 3, 3, 77, DateTimeKind.Utc).AddTicks(1728),
                             IsDeleted = false,
                             Name = "Sauces"
                         });
@@ -566,6 +602,9 @@ namespace Recore.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
                     b.Property<string>("Phone")
                         .HasColumnType("text");
 
@@ -637,6 +676,12 @@ namespace Recore.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Recore.Domain.Entities.Payments.Payment", "Payment")
+                        .WithMany()
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Recore.Domain.Entities.Suppliers.Supplier", "Supplier")
                         .WithMany()
                         .HasForeignKey("SupplierId")
@@ -650,6 +695,8 @@ namespace Recore.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Address");
+
+                    b.Navigation("Payment");
 
                     b.Navigation("Supplier");
 

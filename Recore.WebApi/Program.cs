@@ -1,27 +1,37 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Recore.Data.Contexts;
 using Recore.Data.IRepositories;
 using Recore.Data.Repositories;
+using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
 using Recore.Service.Mappers;
 using Recore.Service.Services;
 using Recore.WebApi.Extensions;
 using Recore.WebApi.Middlewares;
 using Serilog;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//builder.Services.AddServices();
+// Add Custom services
+builder.Services.AddServices();
+
+builder.Services.ConfigureSwagger();
+
+// JWT
+builder.Services.AddJwt(builder.Configuration);
 
 // Logger
 var logger = new LoggerConfiguration()
@@ -33,12 +43,15 @@ builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 
+PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseAuthentication();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
