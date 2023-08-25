@@ -4,9 +4,9 @@ namespace Recore.Service.Interfaces;
 
 public interface IProductCategoryService
 {
-    Task<ProductCategoryResultDto> AddAsync(ProductCategoryCreationDto dto);
-    Task<ProductCategoryResultDto> ModifyAsync(ProductCategoryUpdateDto dto);
-    Task<bool> RemoveAsync(long id);
-    Task<ProductCategoryResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<ProductCategoryResultDto>> RetrieveAllAsync();
+    ValueTask<ProductCategoryResultDto> AddAsync(ProductCategoryCreationDto dto);
+    ValueTask<ProductCategoryResultDto> ModifyAsync(ProductCategoryUpdateDto dto);
+    ValueTask<bool> RemoveAsync(long id);
+    ValueTask<ProductCategoryResultDto> RetrieveByIdAsync(long id);
+    ValueTask<IEnumerable<ProductCategoryResultDto>> RetrieveAllAsync();
 }

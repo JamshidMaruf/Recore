@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Recore.Domain.Entities.Addresses;
 using Recore.Domain.Entities.Attachments;
+using Recore.Domain.Entities.Bonuses;
 using Recore.Domain.Entities.Orders;
 using Recore.Domain.Entities.Products;
 using Recore.Domain.Entities.Suppliers;
@@ -26,6 +27,8 @@ public class AppDbContext : DbContext
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<Attachment> Attachments { get; set; }
+    public DbSet<Bonus> Bonuses { get; set; }
+    public DbSet<BonusSetting> BonusSettings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

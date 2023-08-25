@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Recore.Data.Contexts;
@@ -11,9 +12,10 @@ using Recore.Data.Contexts;
 namespace Recore.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230825171904_Attachment")]
+    partial class Attachment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,101 +199,6 @@ namespace Recore.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Attachments");
-                });
-
-            modelBuilder.Entity("Recore.Domain.Entities.Bonuses.Bonus", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<long>("BonusSettingId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<long>("OrderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BonusSettingId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Bonuses");
-                });
-
-            modelBuilder.Entity("Recore.Domain.Entities.Bonuses.BonusSetting", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("From")
-                        .HasColumnType("numeric");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("OrderQuantity")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("PromoCode")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal?>("To")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Weekday")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BonusSettings");
                 });
 
             modelBuilder.Entity("Recore.Domain.Entities.Orders.Order", b =>
@@ -495,70 +402,70 @@ namespace Recore.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9273),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4544),
                             IsDeleted = false,
                             Name = "Burgers"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9274),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4546),
                             IsDeleted = false,
                             Name = "Lavashes"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9275),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4547),
                             IsDeleted = false,
                             Name = "Hot-Dogs"
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9276),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4547),
                             IsDeleted = false,
                             Name = "Sendviches"
                         },
                         new
                         {
                             Id = 5L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9276),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4548),
                             IsDeleted = false,
                             Name = "Salats"
                         },
                         new
                         {
                             Id = 6L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9277),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4549),
                             IsDeleted = false,
                             Name = "Snacks"
                         },
                         new
                         {
                             Id = 7L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9278),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4550),
                             IsDeleted = false,
                             Name = "Pizzas"
                         },
                         new
                         {
                             Id = 8L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9278),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4551),
                             IsDeleted = false,
                             Name = "Hot drinks"
                         },
                         new
                         {
                             Id = 9L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9279),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4552),
                             IsDeleted = false,
                             Name = "Cold drinks"
                         },
                         new
                         {
                             Id = 10L,
-                            CreatedAt = new DateTime(2023, 8, 25, 19, 19, 19, 988, DateTimeKind.Utc).AddTicks(9280),
+                            CreatedAt = new DateTime(2023, 8, 25, 17, 19, 4, 311, DateTimeKind.Utc).AddTicks(4552),
                             IsDeleted = false,
                             Name = "Sauces"
                         });
@@ -740,33 +647,6 @@ namespace Recore.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("Recore.Domain.Entities.Bonuses.Bonus", b =>
-                {
-                    b.HasOne("Recore.Domain.Entities.Bonuses.BonusSetting", "BonusSetting")
-                        .WithMany()
-                        .HasForeignKey("BonusSettingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Recore.Domain.Entities.Orders.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Recore.Domain.Entities.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BonusSetting");
-
-                    b.Navigation("Order");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Recore.Domain.Entities.Orders.Order", b =>

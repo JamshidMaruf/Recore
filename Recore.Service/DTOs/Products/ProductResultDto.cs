@@ -1,4 +1,6 @@
-﻿using Recore.Domain.Enums;
+﻿using Recore.Data.Migrations;
+using Recore.Domain.Enums;
+using Recore.Service.DTOs.Attachments;
 using Recore.Service.DTOs.ProductCategories;
 
 namespace Recore.Service.DTOs.Products;
@@ -12,4 +14,5 @@ public class ProductResultDto
     public Unit Unit { get; set; }
     public decimal Price { get; set; }
     public ProductCategoryResultDto Category { get; set; }
+    public AttachmentResultDto Attachment { get; set; }
 }

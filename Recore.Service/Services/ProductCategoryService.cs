@@ -1,58 +1,72 @@
-﻿//using Microsoft.EntityFrameworkCore;
-//using Recore.Data.Contexts;
-//using Recore.Service.DTOs.ProductCategories;
-//using Recore.Service.DTOs.Products;
-//using Recore.Service.Helpers;
-//using Recore.Service.Interfaces;
+﻿using AutoMapper;
+using Recore.Service.Exceptions;
+using Recore.Service.Interfaces;
+using Recore.Data.IRepositories;
+using Microsoft.EntityFrameworkCore;
+using Recore.Domain.Entities.Products;
+using Recore.Service.DTOs.ProductCategories;
 
-//namespace Recore.Service.Services;
+namespace Recore.Service.Services;
 
-//public class ProductCategoryService : IProductCategoryService
-//{
-//    private readonly AppDbContext appDbContext = new AppDbContext();
+public class ProductCategoryService : IProductCategoryService
+{
+    private readonly IMapper mapper;
+    private readonly IRepository<ProductCategory> repository;
+    public ProductCategoryService(IRepository<ProductCategory> repository, IMapper mapper)
+    {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
-//    public Task<Response<ProductCategoryResultDto>> CreateAsync(ProductCategoryCreationDto dto)
-//    {
-//        throw new NotImplementedException();
-//    }
+    public async ValueTask<ProductCategoryResultDto> AddAsync(ProductCategoryCreationDto dto)
+    {
+        var category = await this.repository.SelectAsync(c => c.Name.Equals(dto.Name));
+        if (category is not null)
+            throw new AlreadyExistException("This category is already exists");
 
-//    public Task<Response<bool>> DeleteAsync(long id)
-//    {
-//        throw new NotImplementedException();
-//    }
+        var mappedCategory = this.mapper.Map<ProductCategory>(dto);
+        await this.repository.CreateAsync(mappedCategory);
+        await this.repository.SaveAsync();
 
-//    public Task<Response<IEnumerable<ProductCategoryResultDto>>> GetAllAsync()
-//    {
-//        throw new NotImplementedException();
-//    }
+        return this.mapper.Map<ProductCategoryResultDto>(mappedCategory);
+    }
 
-//    public async Task<Response<ProductCategoryResultDto>> GetByIdAsync(long id)
-//    {
-//        var category = await appDbContext.ProductCategories
-//            .FirstOrDefaultAsync(c => c.Id == id);
-//        if (category is null)
-//            return new Response<ProductCategoryResultDto>
-//            {
-//                StatusCode = 404,
-//                Message = $"This category is not found with id={id}"
-//            };
+    public async ValueTask<ProductCategoryResultDto> ModifyAsync(ProductCategoryUpdateDto dto)
+    {
+        var category = await this.repository.SelectAsync(c => c.Id.Equals(dto.Id), includes: new[] {"Products"} );
+        if (category is null)
+            throw new NotFoundException("This category is not found");
 
-//        var result = new ProductCategoryResultDto
-//        {
-//            Id = id,
-//            Name = category.Name
-//        };
+        var mappedCategory = this.mapper.Map(dto, category);
+        this.repository.Update(mappedCategory);
+        await this.repository.SaveAsync();
 
-//        return new Response<ProductCategoryResultDto>
-//        {
-//            StatusCode = 200,
-//            Message = "Success",
-//            Data = result
-//        };
-//    }
+        return this.mapper.Map<ProductCategoryResultDto>(mappedCategory);
+    }
 
-//    public Task<Response<ProductCategoryResultDto>> UpdateAsync(ProductCategoryUpdateDto dto)
-//    {
-//        throw new NotImplementedException();
-//    }
-//}
+    public async ValueTask<bool> RemoveAsync(long id)
+    {
+        var category = await this.repository.SelectAsync(c => c.Id.Equals(id));
+        if (category is null)
+            throw new NotFoundException("This category is not found");
+
+        this.repository.Delete(category);
+        await this.repository.SaveAsync();
+        return true;
+    }
+ 
+    public async ValueTask<ProductCategoryResultDto> RetrieveByIdAsync(long id)
+    {
+        var category = await this.repository.SelectAsync(c => c.Id.Equals(id), includes: new[] { "Products" });
+        if (category is null)
+            throw new NotFoundException("This category is not found");
+
+        return this.mapper.Map<ProductCategoryResultDto>(category);
+    }
+
+    public async ValueTask<IEnumerable<ProductCategoryResultDto>> RetrieveAllAsync()
+    {
+        var categories = await this.repository.SelectAll(includes: new[] { "Products" }).ToListAsync();
+        return this.mapper.Map<IEnumerable<ProductCategoryResultDto>>(categories);
+    }
+}

@@ -15,6 +15,6 @@ public class Product : Auditable
     public long CategoryId { get; set; }
     public ProductCategory Category { get; set; }
 
-    public long AttachmentId { get; set; }
+    public long? AttachmentId { get; set; }
     public Attachment Attachment { get; set; }
 }

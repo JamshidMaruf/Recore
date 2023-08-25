@@ -40,9 +40,9 @@ public class ProductService : IProductService
 
         var mappedProduct = this.mapper.Map<Product>(dto);
         mappedProduct.CategoryId = category.Id;
-        mappedProduct.Category = category;
         await this.productRepository.CreateAsync(mappedProduct);
         await this.productRepository.SaveAsync();
+        mappedProduct.Category = category;
 
         return this.mapper.Map<ProductResultDto>(mappedProduct);
     }
