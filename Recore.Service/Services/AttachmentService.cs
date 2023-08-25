@@ -1,49 +1,50 @@
-﻿using AutoMapper;
+﻿using Recore.Service.Helpers;
 using Recore.Data.IRepositories;
-using Recore.Domain.Entities.Attachments;
-using Recore.Service.DTOs.Attachments;
 using Recore.Service.Extensions;
-using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
+using Recore.Service.DTOs.Attachments;
+using Recore.Domain.Entities.Attachments;
+using Recore.Service.Exceptions;
 
 namespace Recore.Service.Services;
 
 public class AttachmentService : IAttachmentService
 {
-    private readonly IMapper mapper;
     private readonly IRepository<Attachment> repository;
-    public AttachmentService(IRepository<Attachment> repository, IMapper mapper)
+    public AttachmentService(IRepository<Attachment> repository)
     {
         this.repository = repository;
-        this.mapper = mapper;
     }
 
-    public async Task<AttachmentResultDto> UploadAsync(AttachmentCreationDto dto)
+    public async Task<Attachment> UploadAsync(AttachmentCreationDto dto)
     {
-        var webrootPath = $"{PathHelper.WebRootPath}/Files";
+        var webrootPath = Path.Combine(PathHelper.WebRootPath, "Files");
 
         if(!Directory.Exists(webrootPath))
             Directory.CreateDirectory(webrootPath);
 
         var fileExtension = Path.GetExtension(dto.FormFile.FileName);
         var fileName = $"{Guid.NewGuid().ToString("N")}{fileExtension}";
+        var fullPath = Path.Combine(webrootPath, fileName);
 
-        var fileStream = new FileStream(webrootPath, FileMode.Open);
+        var fileStream = new FileStream(fullPath, FileMode.OpenOrCreate);
         await fileStream.WriteAsync(dto.FormFile.ToByte());
 
         var createdAttachment = new Attachment
         {
             FileName = fileName,
-            FIlePath = $"{webrootPath}/{fileName}"
+            FIlePath = fullPath
         };
         await this.repository.CreateAsync(createdAttachment);
+        await this.repository.SaveAsync();
 
-        var mappedAttachemnt = this.mapper.Map<AttachmentResultDto>(createdAttachment);
-        return mappedAttachemnt;
+        return createdAttachment;
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public async Task<bool> RemoveAsync(Attachment attachment)
     {
-        throw new NotImplementedException();
+        this.repository.Delete(attachment);
+        await this.repository.SaveAsync();
+        return true;
     }
 }
