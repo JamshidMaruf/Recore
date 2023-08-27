@@ -11,5 +11,6 @@ public interface IUserService
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<UserResultDto> RetrieveByIdAsync(long id);
     ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params);
+    ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync();
     ValueTask<UserResultDto> UpgradeRoleAsync(long id, UserRole role);
 }

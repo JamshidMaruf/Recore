@@ -1,0 +1,62 @@
+﻿@using Recore.Domain.Entities.Users;
+@model User;
+
+
+<h1>Edit</h1>
+<br />
+
+<div class="container">
+    <form asp-controller="Users" asp-action="Edit" method="post">
+        <div class="row">
+            <div class="col mb-4">
+                <label asp-for="FirstName" class="mb-1"></label>
+                <input asp-for="FirstName" readonly type="text" class="form-control" />
+            </div>
+            <div class="col mb-4">
+                <label asp-for="Phone" class="mb-1"></label>
+                <input asp-for="Phone" type="tel" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col mb-4">
+                <label asp-for="LastName" class="mb-1 font-size:"></label>
+                <input asp-for="LastName" type="text" class="form-control" />
+            </div>
+            <div class="col mb-4">
+                <label asp-for="Email" class="mb-1"></label>
+                <input asp-for="Email" type="email" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col mb-4">
+                <label asp-for="DateOfBirth" class="mb-1"></label>
+                <input asp-for="DateOfBirth" type="date" class="form-control" />
+            </div>
+            <div class="col mb-4">
+                <label asp-for="Password" class="mb-1"></label> 
+                <input asp-for="Password" type="password" required class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+                <button class="btn btn-danger pe-xxl-4 text-center" asp-action="Index">Back</button>
+                <button class="btn btn-primary pe-xxl-4 text-center" asp-action="Edit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,47 @@
+﻿@using Recore.Service.DTOs.Users;
+@model IEnumerable<UserResultDto>;
+
+
+<h1>Users</h1>
+
+<a asp-controller="Users" asp-action="Create">Create</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            @{
+                var id = Model.FirstOrDefault();
+            }
+            <th>@Html.DisplayNameFor(item => id.Id)</th>
+            <th>@Html.DisplayNameFor(item => id.FirstName)</th>
+            <th>@Html.DisplayNameFor(item => id.LastName)</th>
+            <th>@Html.DisplayNameFor(item => id.Phone)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(i => item.Id)
+                </th>
+                <th>
+                    @Html.DisplayFor(i => item.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayFor(i => item.LastName)
+                </th>
+                <th>
+                    @Html.DisplayFor(i => item.Phone)
+                </th>
+                <th>
+                    <form asp-controller="Users" method="get">
+                        <button class="btn btn-primary" asp-action="Detail" asp-route-id="@item.Id">Detail</button>
+                        <button class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</button>
+                    </form>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>

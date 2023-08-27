@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recore.WebApi", "Recore.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recore.Shared", "Recore.Shared\Recore.Shared.csproj", "{C4757E80-D9C5-4AC8-B615-9E9FAEA6A89A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recore.Web", "Recore.Web\Recore.Web.csproj", "{E28DD7C8-F3D1-44B2-98B5-70F10DB419EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C4757E80-D9C5-4AC8-B615-9E9FAEA6A89A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4757E80-D9C5-4AC8-B615-9E9FAEA6A89A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4757E80-D9C5-4AC8-B615-9E9FAEA6A89A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E28DD7C8-F3D1-44B2-98B5-70F10DB419EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E28DD7C8-F3D1-44B2-98B5-70F10DB419EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E28DD7C8-F3D1-44B2-98B5-70F10DB419EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E28DD7C8-F3D1-44B2-98B5-70F10DB419EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

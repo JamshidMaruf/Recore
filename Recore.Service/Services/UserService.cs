@@ -82,7 +82,15 @@ public class UserService : IUserService
         return result;
     }
 
-	public async ValueTask<UserResultDto> UpgradeRoleAsync(long id, UserRole role)
+    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync()
+    {
+        var users = await this.repository.SelectAll()
+            .ToListAsync();
+        var result = this.mapper.Map<IEnumerable<UserResultDto>>(users);
+        return result;
+    }
+
+    public async ValueTask<UserResultDto> UpgradeRoleAsync(long id, UserRole role)
 	{
 		User existUser = await this.repository.SelectAsync(u => u.Id.Equals(id));
 		if (existUser is null)

@@ -1,0 +1,27 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.navbar-inverse {
+    background-color: #000000;
+    border-color: #808080;
+}
+
+.navbar{
+    background-color: #000000;
+}
