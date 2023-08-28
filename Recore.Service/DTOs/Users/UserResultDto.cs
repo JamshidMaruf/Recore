@@ -26,4 +26,10 @@ public class UserResultDto
 
     [DisplayName("DateOfBirth")]
     public DateTime DateOfBirth { get; set; }
+
+    [DisplayName("Gender")]
+    public Gender Gender { get; set; }
+
+    [DisplayName("Order count")]
+    public int OrderCount { get; set; }
 }

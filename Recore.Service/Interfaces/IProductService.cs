@@ -11,6 +11,7 @@ public interface IProductService
     Task<bool> RemoveAsync(long id);
     Task<ProductResultDto> RetrieveByIdAsync(long id);
     Task<IEnumerable<ProductResultDto>> RetrieveAllAsync(PaginationParams @params);
+    Task<IEnumerable<ProductResultDto>> RetrieveAllAsync();
     Task<ProductResultDto> IncreaseQuantityAsync(long productId, double quantity);
     Task<ProductResultDto> ImageUploadAsync(long productId, AttachmentCreationDto dto);
     Task<ProductResultDto> ModifyImageAsync(long productId, AttachmentCreationDto dto);

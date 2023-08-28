@@ -96,6 +96,14 @@ public class ProductService : IProductService
         return this.mapper.Map<IEnumerable<ProductResultDto>>(products);
     }
 
+    public async Task<IEnumerable<ProductResultDto>> RetrieveAllAsync()
+    {
+        var products = await this.productRepository.SelectAll(includes: new[] { "Category", "Attachment" })
+            .ToListAsync();
+
+        return this.mapper.Map<IEnumerable<ProductResultDto>>(products);
+    }
+
     public async Task<ProductResultDto> RetrieveByIdAsync(long id)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(id), 
