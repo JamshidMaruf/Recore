@@ -13,6 +13,9 @@ public class ProductResultDto
     public double Quantity { get; set; }
     public Unit Unit { get; set; }
     public decimal Price { get; set; }
+    public int SaleCount { get; set; }
+    public bool IsTop { get; set; }
+    public int Discount { get; set; }
     public ProductCategoryResultDto Category { get; set; }
     public AttachmentResultDto Attachment { get; set; }
 }

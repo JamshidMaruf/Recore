@@ -27,4 +27,18 @@ public class ProductsController : Controller
 
         return View(viewModel);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Index(long categoryId)
+    {
+        var products = (await this.productService.RetrieveAllAsync()).Where(t => t.Category.Id == categoryId);
+        var categories = await this.productCategoryService.RetrieveAllAsync();
+        var viewModel = new ProductViewModel
+        {
+            Products = products,
+            Categories = categories
+        };
+
+        return View(viewModel);
+    }
 }   
