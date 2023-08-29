@@ -33,7 +33,7 @@ public class AttachmentService : IAttachmentService
         var createdAttachment = new Attachment
         {
             FileName = fileName,
-            FIlePath = fullPath
+            FilePath = fullPath
         };
         await this.repository.CreateAsync(createdAttachment);
         await this.repository.SaveAsync();
