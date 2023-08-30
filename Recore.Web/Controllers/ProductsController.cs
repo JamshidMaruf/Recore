@@ -15,30 +15,21 @@ public class ProductsController : Controller
         this.productCategoryService = productCategoryService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(long categoryId, string search = null)
     {
         var products = await this.productService.RetrieveAllAsync();
         var categories = await this.productCategoryService.RetrieveAllAsync();
+
+        if(!string.IsNullOrEmpty(search))
+        {
+            products = products.Where(p => p.Name.Contains(search));
+        }
+
         var viewModel = new ProductViewModel
         {
             Products = products,
             Categories = categories
         };
-
-        return View(viewModel);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Index(long categoryId)
-    {
-        var products = (await this.productService.RetrieveAllAsync()).Where(t => t.Category.Id == categoryId);
-        var categories = await this.productCategoryService.RetrieveAllAsync();
-        var viewModel = new ProductViewModel
-        {
-            Products = products,
-            Categories = categories
-        };
-
         return View(viewModel);
     }
 }   

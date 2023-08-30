@@ -12,7 +12,11 @@ public interface IProductService
     Task<ProductResultDto> RetrieveByIdAsync(long id);
     Task<IEnumerable<ProductResultDto>> RetrieveAllAsync(PaginationParams @params);
     Task<IEnumerable<ProductResultDto>> RetrieveAllAsync();
+    Task<IEnumerable<ProductResultDto>> RetrieveAllAsync(long categoryId);
     Task<ProductResultDto> IncreaseQuantityAsync(long productId, double quantity);
     Task<ProductResultDto> ImageUploadAsync(long productId, AttachmentCreationDto dto);
     Task<ProductResultDto> ModifyImageAsync(long productId, AttachmentCreationDto dto);
+    Task<ProductResultDto> DefineSaleCountAsync(long productId);
+    Task<ProductResultDto> SetTopCountAsync(long productId, int saleCount);
+    Task<ProductResultDto> SetDiscountAsync(long productId, int discount);
 }
