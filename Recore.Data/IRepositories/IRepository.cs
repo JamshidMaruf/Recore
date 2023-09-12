@@ -14,4 +14,5 @@ public interface IRepository<T> where T : Auditable
     ValueTask SaveAsync();
     //Unit of work kerak!
     // Yechimlar kerak, ilmlilar kerak
+    // nimadir qilish kerak
 }
