@@ -73,13 +73,18 @@ public class UserService : IUserService
         return result;
     }
 
-    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params,string search = null)
     {
         var users = await this.repository.SelectAll()
             .ToPaginate(@params)
             .ToListAsync();
-        var result = this.mapper.Map<IEnumerable<UserResultDto>>(users);
-        return result;
+
+        var result = users.Where(user => user.FirstName.Contains(search, StringComparison.OrdinalIgnoreCase));
+        var mappedUsers = this.mapper.Map<List<UserResultDto>>(result);
+        return mappedUsers;
+
+        //var result = this.mapper.Map<IEnumerable<UserResultDto>>(users);
+        //return result;
     }
 
     public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync()
