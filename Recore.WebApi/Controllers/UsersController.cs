@@ -74,4 +74,24 @@ public class UsersController : BaseController
 			Message = "Success",
 			Data = await this.userService.UpgradeRoleAsync(id, role)
 		});
+
+    [HttpGet]
+    public ActionResult<PaginationMetaData<UserResultDto>> GetPaginatedData([FromQuery] PaginationParams pagination)
+    {
+        var queryableData = userService.RetrieveAllAsync();
+        var totalItems = queryableData.Count();
+        var paginatedData = queryableData.Skip((pagination.PageIndex - 1) * pagination.PageSize)
+                                       .Take(pagination.PageSize)
+                                       .ToList();
+
+        var result = new PaginationMetaData<UserResultDto>
+        {
+            Data = paginatedData,
+            TotalItems = totalItems,
+            PageIndex = pagination.PageIndex,
+            PageSize = pagination.PageSize
+        };
+
+        return result;
+    }
 }
