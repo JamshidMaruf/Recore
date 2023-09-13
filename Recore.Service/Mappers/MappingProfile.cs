@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Recore.Domain.Entities.Addresses;
 using Recore.Domain.Entities.Attachments;
+using Recore.Domain.Entities.Bonuses;
 using Recore.Domain.Entities.Products;
 using Recore.Domain.Entities.Users;
 using Recore.Service.DTOs.Attachments;
+using Recore.Service.DTOs.BonusSetting;
 using Recore.Service.DTOs.Countries;
 using Recore.Service.DTOs.Districts;
 using Recore.Service.DTOs.ProductCategories;
@@ -47,5 +49,10 @@ public class MappingProfile : Profile
 
         // Attachment
         CreateMap<AttachmentResultDto, Attachment>().ReverseMap();
+
+        //Bonus Setting
+        CreateMap<BonusSetting, BonusSettingResultDto>().ReverseMap();
+        CreateMap<BonusSettingCreationDto, BonusSetting>().ReverseMap();
+        CreateMap<BonusSettingUpdateDto, BonusSetting>().ReverseMap();
     }
 }

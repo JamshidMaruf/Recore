@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Recore.Data.Contexts;
@@ -33,6 +34,13 @@ builder.Services.ConfigureSwagger();
 
 // JWT
 builder.Services.AddJwt(builder.Configuration);
+
+// Lowercase routing
+
+builder.Services.AddControllers(options =>
+{
+    options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+});
 
 // Logger
 var logger = new LoggerConfiguration()

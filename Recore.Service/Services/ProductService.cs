@@ -161,8 +161,7 @@ public class ProductService : IProductService
     {
         var products = this.orderItemRepository.SelectAll(p => p.ProductId.Equals(productId));
         var productQuantity = products.Select(p => p.CartItem.Quantity).Sum();
-        var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
-
+        
         return new ProductResultDto
         {
             Id = product.Id,
