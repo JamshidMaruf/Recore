@@ -20,7 +20,7 @@ public class ProductCategoryService : IProductCategoryService
 
     public async ValueTask<ProductCategoryResultDto> AddAsync(ProductCategoryCreationDto dto)
     {
-        var category = await this.repository.SelectAsync(c => c.Name.Equals(dto.Name));
+        var category = await this.repository.SelectAsync(c => c.Name.ToLower().Equals(dto.Name.ToLower()));
         if (category is not null)
             throw new AlreadyExistException("This category is already exists");
 

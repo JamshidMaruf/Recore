@@ -4,9 +4,9 @@ namespace Recore.Service.Interfaces;
 
 public interface IAddressService
 {
-    Task<AddressResultDto> AddAsync(AddressCreationDto dto);
-    Task<AddressResultDto> ModifyAsync(AddressUpdateDto dto);
-    Task<bool> RemoveAsync(long id);
-    Task<AddressResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<AddressResultDto>> RetrieveAllAsync();
+    ValueTask<AddressResultDto> AddAsync(AddressCreationDto dto);
+    ValueTask<AddressResultDto> ModifyAsync(AddressUpdateDto dto);
+    ValueTask<bool> RemoveAsync(long id);
+    ValueTask<AddressResultDto> RetrieveByIdAsync(long id);
+    ValueTask<IEnumerable<AddressResultDto>> RetrieveAllAsync();
 }

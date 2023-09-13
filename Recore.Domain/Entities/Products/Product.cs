@@ -11,6 +11,9 @@ public class Product : Auditable
     public double Quantity { get; set; }
     public Unit Unit { get; set; }
     public decimal Price { get; set; }
+    public bool IsTop { get; set; }
+    public int Discount { get; set; }
+    public int CountTop { get; set; }
 
     public long CategoryId { get; set; }
     public ProductCategory Category { get; set; }

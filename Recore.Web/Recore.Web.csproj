@@ -7,11 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Extensions\ServicesCollection.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Recore.Service\Recore.Service.csproj" />
+    <ProjectReference Include="..\Recore.WebApi\Recore.WebApi.csproj" />
   </ItemGroup>
 
 </Project>
