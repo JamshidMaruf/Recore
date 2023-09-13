@@ -24,7 +24,7 @@ public class DistrictService : IDistrictService
         this.repository = repository;
     }
 
-    public async Task<bool> SetAsync()
+    public async ValueTask<bool> SetAsync()
     {
         var dbSource = this.repository.SelectAll();
         if (dbSource.Any())
@@ -43,7 +43,7 @@ public class DistrictService : IDistrictService
 		return true;
     }
 
-    public async Task<DistrictResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<DistrictResultDto> RetrieveByIdAsync(long id)
     {
         var district = await this.repository.SelectAsync(r => r.Id.Equals(id), includes: new[] { "Region.Country" });
         if (district is null)
@@ -53,7 +53,7 @@ public class DistrictService : IDistrictService
         return mappedDistrict;
     }
 
-    public async Task<IEnumerable<DistrictResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async ValueTask<IEnumerable<DistrictResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var districts = await this.repository.SelectAll(includes: new[] { "Region.Country" })
             .ToPaginate(@params)
