@@ -22,7 +22,7 @@ public class RegionService : IRegionService
         this.mapper = mapper;
     }
 
-	public async Task<bool> SetAsync()
+	public async ValueTask<bool> SetAsync()
 	{
 		var dbSource = this.repository.SelectAll();
 		if (dbSource.Any())
@@ -42,7 +42,7 @@ public class RegionService : IRegionService
 		return true;
 	}
 
-	public async Task<RegionResultDto> RetrieveByIdAsync(long id)
+	public async ValueTask<RegionResultDto> RetrieveByIdAsync(long id)
     {
         var region = await this.repository.SelectAsync(r => r.Id.Equals(id), includes: new[] { "Country" });
         if (region is null)
@@ -52,7 +52,7 @@ public class RegionService : IRegionService
         return mappedRegion;
     }
 
-    public async Task<IEnumerable<RegionResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async ValueTask<IEnumerable<RegionResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var regions = await this.repository.SelectAll(includes: new[] { "Country" })
             .ToPaginate(@params)

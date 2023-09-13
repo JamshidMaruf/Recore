@@ -5,27 +5,27 @@ namespace Recore.Service.Services;
 
 public class OrderService : IOrderService
 {
-    public Task<OrderResultDto> AddAsync(OrderCreationDto dto)
+    public ValueTask<OrderResultDto> AddAsync(OrderCreationDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<OrderResultDto> ModifyAsync(OrderUpdateDto dto)
+    public ValueTask<OrderResultDto> ModifyAsync(OrderUpdateDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public ValueTask<bool> RemoveAsync(long id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<OrderResultDto>> RetrieveAllAsync()
+    public ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<OrderResultDto> RetrieveByIdAsync(long id)
+    public ValueTask<OrderResultDto> RetrieveByIdAsync(long id)
     {
         throw new NotImplementedException();
     }

@@ -4,9 +4,9 @@ namespace Recore.Service.Interfaces;
 
 public interface IVehicleService
 {
-    Task<VehicleResultDto> AddAsync(VehicleCreationDto dto);
-    Task<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto);
-    Task<bool> RemoveAsync(long id);
-    Task<VehicleResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<VehicleResultDto>> RetrieveAllAsync();
+    ValueTask<VehicleResultDto> AddAsync(VehicleCreationDto dto);
+    ValueTask<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto);
+    ValueTask<bool> RemoveAsync(long id);
+    ValueTask<VehicleResultDto> RetrieveByIdAsync(long id);
+    ValueTask<IEnumerable<VehicleResultDto>> RetrieveAllAsync();
 }

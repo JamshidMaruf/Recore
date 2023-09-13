@@ -20,7 +20,7 @@ public class VehicleService : IVehicleService
         this.mapper = mapper;
         this.repository = repository;
     }
-    public async Task<VehicleResultDto> AddAsync(VehicleCreationDto dto)
+    public async ValueTask<VehicleResultDto> AddAsync(VehicleCreationDto dto)
     {
         var mappedVehicle = this.mapper.Map<Vehicle>(dto);
         await this.repository.CreateAsync(mappedVehicle);
@@ -30,7 +30,7 @@ public class VehicleService : IVehicleService
         return result;
     }
 
-    public async Task<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto)
+    public async ValueTask<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto)
     {
         Vehicle vehicle = await this.repository.SelectAsync(u => u.Id.Equals(dto.Id));
         if (vehicle is null)
@@ -44,7 +44,7 @@ public class VehicleService : IVehicleService
         return result;
     }
 
-    public async Task<bool> RemoveAsync(long id)
+    public async ValueTask<bool> RemoveAsync(long id)
     {
         Vehicle vehicle = await this.repository.SelectAsync(u => u.Id.Equals(id));
         if (vehicle is null)
@@ -55,14 +55,14 @@ public class VehicleService : IVehicleService
         return true;
     }
 
-    public async Task<IEnumerable<VehicleResultDto>> RetrieveAllAsync()
+    public async ValueTask<IEnumerable<VehicleResultDto>> RetrieveAllAsync()
     {
         var vehicle = await this.repository.SelectAll().ToListAsync();
         var result = this.mapper.Map<IEnumerable<VehicleResultDto>>(vehicle);
         return result;
     }
 
-    public async Task<VehicleResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<VehicleResultDto> RetrieveByIdAsync(long id)
     {
         Vehicle vehicle = await this.repository.SelectAsync(u => u.Id.Equals(id));
         if (vehicle is null)

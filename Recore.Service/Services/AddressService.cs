@@ -31,7 +31,7 @@ public class AddressService : IAddressService
         this.districtRepository = districtRepository;
     }
 
-    public async Task<AddressResultDto> AddAsync(AddressCreationDto dto)
+    public async ValueTask<AddressResultDto> AddAsync(AddressCreationDto dto)
     {
         var existRegion = await this.regionRepository.SelectAsync(r => r.Id.Equals(dto.RegionId))
             ?? throw new NotFoundException($"This regionId was not found with {dto.RegionId}");
@@ -53,7 +53,7 @@ public class AddressService : IAddressService
         return this.mapper.Map<AddressResultDto>(mappedAddress);
     }
 
-    public async Task<AddressResultDto> ModifyAsync(AddressUpdateDto dto)
+    public async ValueTask<AddressResultDto> ModifyAsync(AddressUpdateDto dto)
     {
         var existAddress = await this.addressRepository.SelectAsync(r => r.Id.Equals(dto.Id))
             ?? throw new NotFoundException($"This id was not found with {dto.Id}");
@@ -82,7 +82,7 @@ public class AddressService : IAddressService
         return mapper.Map<AddressResultDto>(existAddress);
     }
 
-    public async Task<bool> RemoveAsync(long id)
+    public async ValueTask<bool> RemoveAsync(long id)
     {
         var existAddress = await this.addressRepository.SelectAsync(r => r.Id.Equals(id))
             ?? throw new NotFoundException($"This id was not found with {id}");
@@ -93,7 +93,7 @@ public class AddressService : IAddressService
         return true;
     }
 
-    public async Task<IEnumerable<AddressResultDto>> RetrieveAllAsync()
+    public async ValueTask<IEnumerable<AddressResultDto>> RetrieveAllAsync()
     {
         var addresses = await this.addressRepository.SelectAll(includes: new[] { "Country", "Region", "District" })
             .ToListAsync();
@@ -101,7 +101,7 @@ public class AddressService : IAddressService
         return this.mapper.Map<IEnumerable<AddressResultDto>>(addresses);
     }
 
-    public async Task<IEnumerable<AddressResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async ValueTask<IEnumerable<AddressResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var addresses = await this.addressRepository.SelectAll(includes: new[] { "Country", "Region", "District" })
             .ToPaginate(@params)
@@ -110,7 +110,7 @@ public class AddressService : IAddressService
         return this.mapper.Map<IEnumerable<AddressResultDto>>(addresses);
     }
 
-    public async Task<AddressResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<AddressResultDto> RetrieveByIdAsync(long id)
     {
         var existAddress = await this.addressRepository.SelectAsync(p => p.Id.Equals(id),
             includes: new[] { "Country", "Region", "District" })

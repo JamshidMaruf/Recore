@@ -5,6 +5,6 @@ namespace Recore.Service.Interfaces;
 
 public interface IAttachmentService
 {
-    Task<Attachment> UploadAsync(AttachmentCreationDto dto);
-    Task<bool> RemoveAsync(Attachment attachment);
+    ValueTask<Attachment> UploadAsync(AttachmentCreationDto dto);
+    ValueTask<bool> RemoveAsync(Attachment attachment);
 }
