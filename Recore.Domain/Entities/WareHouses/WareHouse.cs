@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Recore.Domain.Commons;
 
-namespace Recore.Domain.Entities.WareHouses
+namespace Recore.Domain.Entities.WareHouses;
+
+public class WareHouse : Auditable
 {
-	internal class WareHouse
-	{
-	}
+	public long Id { get; set; }
 }
