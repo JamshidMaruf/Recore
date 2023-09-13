@@ -5,7 +5,7 @@ namespace Recore.Service.Interfaces;
 
 public interface ICountryService
 {
-    Task<bool> SetAsync();
-    Task<CountryResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams @params);
+    ValueTask<bool> SetAsync();
+    ValueTask<CountryResultDto> RetrieveByIdAsync(long id);
+    ValueTask<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams @params);
 }

@@ -4,9 +4,9 @@ namespace Recore.Service.Interfaces;
 
 public interface IOrderItemService
 {
-    Task<OrderItemResultDto> AddAsync(OrderItemCreationDto dto);
-    Task<OrderItemResultDto> ModifyAsync(OrderItemUpdateDto dto);
-    Task<bool> RemoveAsync(long id);
-    Task<OrderItemResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<OrderItemResultDto>> RetrieveAllAsync();
+    ValueTask<OrderItemResultDto> AddAsync(OrderItemCreationDto dto);
+    ValueTask<OrderItemResultDto> ModifyAsync(OrderItemUpdateDto dto);
+    ValueTask<bool> RemoveAsync(long id);
+    ValueTask<OrderItemResultDto> RetrieveByIdAsync(long id);
+    ValueTask<IEnumerable<OrderItemResultDto>> RetrieveAllAsync();
 }
