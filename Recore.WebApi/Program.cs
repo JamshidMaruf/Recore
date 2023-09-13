@@ -45,6 +45,11 @@ var app = builder.Build();
 
 PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
+PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>(("FilePath:CountryFilePaths")));
+PathHelper.RegionPath = Path.GetFullPath(builder.Configuration.GetValue<string>(("FilePath:RegionFilePaths")));
+PathHelper.DistrictPath = Path.GetFullPath(builder.Configuration.GetValue<string>(("FilePath:DictrictsFilePaths")));
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
