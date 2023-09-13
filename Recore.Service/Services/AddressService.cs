@@ -10,27 +10,27 @@ public class AddressService : IAddressService
 
     }
 
-    public Task<AddressResultDto> AddAsync(AddressCreationDto dto)
+    public ValueTask<AddressResultDto> AddAsync(AddressCreationDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<AddressResultDto> ModifyAsync(AddressUpdateDto dto)
+    public ValueTask<AddressResultDto> ModifyAsync(AddressUpdateDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public ValueTask<bool> RemoveAsync(long id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<AddressResultDto>> RetrieveAllAsync()
+    public ValueTask<IEnumerable<AddressResultDto>> RetrieveAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<AddressResultDto> RetrieveByIdAsync(long id)
+    public ValueTask<AddressResultDto> RetrieveByIdAsync(long id)
     {
         throw new NotImplementedException();
     }

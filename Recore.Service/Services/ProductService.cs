@@ -29,7 +29,7 @@ public class ProductService : IProductService
         this.productCategoryRepository = productCategoryRepository;
     }
 
-    public async Task<ProductResultDto> AddAsync(ProductCreationDto dto)
+    public async ValueTask<ProductResultDto> AddAsync(ProductCreationDto dto)
     {
         var product = await this.productRepository.SelectAsync(p => p.Name.Equals(dto.Name), includes: new[] { "Attachment" });
         if (product is not null)
@@ -47,7 +47,7 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(mappedProduct);
     }
 
-    public async Task<ProductResultDto> IncreaseQuantityAsync(long productId, double quantity)
+    public async ValueTask<ProductResultDto> IncreaseQuantityAsync(long productId, double quantity)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId), 
             includes: new[] { "Category", "Attachment" })
@@ -60,7 +60,7 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<ProductResultDto> ModifyAsync(ProductUpdateDto dto)
+    public async ValueTask<ProductResultDto> ModifyAsync(ProductUpdateDto dto)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(dto.Id), includes: new[] { "Attachment" })
             ?? throw new NotFoundException("This product is not found");
@@ -77,7 +77,7 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<bool> RemoveAsync(long id)
+    public async ValueTask<bool> RemoveAsync(long id)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(id))
             ?? throw new NotFoundException("This product is not found");
@@ -87,7 +87,7 @@ public class ProductService : IProductService
         return true;
     }
 
-    public async Task<IEnumerable<ProductResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async ValueTask<IEnumerable<ProductResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var products = await this.productRepository.SelectAll(includes: new[] { "Category", "Attachment" })
             .ToPaginate(@params)
@@ -96,7 +96,7 @@ public class ProductService : IProductService
         return this.mapper.Map<IEnumerable<ProductResultDto>>(products);
     }
 
-    public async Task<IEnumerable<ProductResultDto>> RetrieveAllAsync()
+    public async ValueTask<IEnumerable<ProductResultDto>> RetrieveAllAsync()
     {
         var products = await this.productRepository.SelectAll(includes: new[] { "Category", "Attachment" })
             .ToListAsync();
@@ -104,7 +104,7 @@ public class ProductService : IProductService
         return this.mapper.Map<IEnumerable<ProductResultDto>>(products);
     }
 
-    public async Task<ProductResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<ProductResultDto> RetrieveByIdAsync(long id)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(id), 
             includes: new[] { "Category", "Attachment" })
@@ -113,7 +113,7 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<ProductResultDto> ImageUploadAsync(long productId, AttachmentCreationDto dto)
+    public async ValueTask<ProductResultDto> ImageUploadAsync(long productId, AttachmentCreationDto dto)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId), includes: new[] { "Category" })
             ?? throw new NotFoundException("This product is not found");
@@ -128,7 +128,7 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<ProductResultDto> ModifyImageAsync(long productId, AttachmentCreationDto dto)
+    public async ValueTask<ProductResultDto> ModifyImageAsync(long productId, AttachmentCreationDto dto)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId), 
             includes: new[] { "Category", "Attachment" })

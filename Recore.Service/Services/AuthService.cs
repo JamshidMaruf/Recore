@@ -21,7 +21,7 @@ public class AuthService : IAuthService
 		this.userRepository = userRepository;
 	}
 
-	public async Task<string> GenerateTokenAsync(string phone, string originalPassword)
+	public async ValueTask<string> GenerateTokenAsync(string phone, string originalPassword)
 	{
 		var user = await this.userRepository.SelectAsync(u => u.Phone.Equals(phone));
 		if (user is null)

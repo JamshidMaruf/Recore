@@ -5,27 +5,27 @@ namespace Recore.Service.Services;
 
 public class SupplierService : ISupplierService
 {
-    public Task<SupplierResultDto> AddAsync(SupplierCreationDto dto)
+    public ValueTask<SupplierResultDto> AddAsync(SupplierCreationDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<SupplierResultDto> ModifyAsync(SupplierUpdateDto dto)
+    public ValueTask<SupplierResultDto> ModifyAsync(SupplierUpdateDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public ValueTask<bool> RemoveAsync(long id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<SupplierResultDto>> RetrieveAllAsync()
+    public ValueTask<IEnumerable<SupplierResultDto>> RetrieveAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<SupplierResultDto> RetrieveByIdAsync(long id)
+    public ValueTask<SupplierResultDto> RetrieveByIdAsync(long id)
     {
         throw new NotImplementedException();
     }

@@ -5,27 +5,27 @@ namespace Recore.Service.Services;
 
 public class VehicleService : IVehicleService
 {
-    public Task<VehicleResultDto> AddAsync(VehicleCreationDto dto)
+    public ValueTask<VehicleResultDto> AddAsync(VehicleCreationDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto)
+    public ValueTask<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public ValueTask<bool> RemoveAsync(long id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<VehicleResultDto>> RetrieveAllAsync()
+    public ValueTask<IEnumerable<VehicleResultDto>> RetrieveAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<VehicleResultDto> RetrieveByIdAsync(long id)
+    public ValueTask<VehicleResultDto> RetrieveByIdAsync(long id)
     {
         throw new NotImplementedException();
     }
