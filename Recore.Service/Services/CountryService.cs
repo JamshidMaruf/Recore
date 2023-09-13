@@ -8,6 +8,7 @@ using Recore.Service.DTOs.Countries;
 using Recore.Service.DTOs.Regions;
 using Recore.Service.Exceptions;
 using Recore.Service.Extensions;
+using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
@@ -27,7 +28,7 @@ public class CountryService : ICountryService
         if (dbSource.Any())
             throw new AlreadyExistException("Countries are already exist");
 
-		string path = @"D:\\Lesson\\Recore\\Recore.Shared\\Files\\countries.json";
+		string path = PathHelper.CountryPath;
 		var source = File.ReadAllText(path);
 		var countries = JsonConvert.DeserializeObject<IEnumerable<CountryCreationDto>>(source);
 

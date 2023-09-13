@@ -8,6 +8,7 @@ using Recore.Domain.Entities.Addresses;
 using Microsoft.EntityFrameworkCore;
 using Recore.Service.Extensions;
 using Recore.Domain.Configurations;
+using Recore.Service.Helpers;
 
 namespace Recore.Service.Services;
 
@@ -27,7 +28,7 @@ public class RegionService : IRegionService
 		if (dbSource.Any())
 			throw new AlreadyExistException("Regions are already exist");
 		
-		string path = @"D:\Lesson\Recore\Recore.Shared\Files\regions.json";
+		string path =PathHelper.RegionPath;
 
 		var source = File.ReadAllText(path);
 		var regions = JsonConvert.DeserializeObject<IEnumerable<RegionCreationDto>>(source);
