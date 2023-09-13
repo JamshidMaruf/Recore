@@ -1,12 +1,13 @@
 ﻿using Recore.Domain.Configurations;
+using Recore.Service.DTOs.BonusSetting;
 
 namespace Recore.Service.Interfaces;
 
 public interface IBonusSettingService
 {
-    ValueTask<object> AddAsync(object dto);
-    ValueTask<object> ModifyAsync(object dto);
-    ValueTask<object> RemoveAsync(long id);
-    ValueTask<object> RetrieveByIdAsync(long id);
-    ValueTask<object> RetrieveAllAsync(PaginationParams @params);
+    ValueTask<BonusSettingResultDto> AddAsync(BonusSettingCreationDto dto);
+    ValueTask<BonusSettingResultDto> ModifyAsync(BonusSettingUpdateDto dto);
+    ValueTask<bool> RemoveAsync(long id);
+    ValueTask<BonusSettingResultDto> RetrieveByIdAsync(long id);
+    ValueTask<IEnumerable<BonusSettingResultDto>> RetrieveAllAsync(PaginationParams @params);
 }
