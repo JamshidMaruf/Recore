@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Recore.Data.Contexts;
-using Recore.WebApi.Extensions;
+using Recore.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +34,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Products}/{action=Index}/{id?}");
 
 app.Run();

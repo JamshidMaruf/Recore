@@ -8,6 +8,7 @@ using Recore.Service.DTOs.Products;
 using Microsoft.EntityFrameworkCore;
 using Recore.Domain.Entities.Products;
 using Recore.Service.DTOs.Attachments;
+using Recore.Domain.Entities.Orders;
 
 namespace Recore.Service.Services;
 
@@ -16,17 +17,20 @@ public class ProductService : IProductService
     private readonly IMapper mapper;
     private readonly IAttachmentService attachmentService;
     private readonly IRepository<Product> productRepository;
+    private readonly IRepository<OrderItem> orderItemRepository;
     private readonly IRepository<ProductCategory> productCategoryRepository;
     public ProductService(
         IMapper mapper,
         IAttachmentService attachmentService,
         IRepository<Product> productRepository,
-        IRepository<ProductCategory> productCategoryRepository)
+        IRepository<ProductCategory> productCategoryRepository,
+        IRepository<OrderItem> orderItemRepository)
     {
         this.mapper = mapper;
         this.productRepository = productRepository;
         this.attachmentService = attachmentService;
         this.productCategoryRepository = productCategoryRepository;
+        this.orderItemRepository = orderItemRepository;
     }
 
     public async ValueTask<ProductResultDto> AddAsync(ProductCreationDto dto)
@@ -104,6 +108,14 @@ public class ProductService : IProductService
         return this.mapper.Map<IEnumerable<ProductResultDto>>(products);
     }
 
+    public async ValueTask<IEnumerable<ProductResultDto>> RetrieveAllAsync(long categoryId)
+    {
+        var products = await this.productRepository.SelectAll(expression: p => p.CategoryId == categoryId,
+            includes: new[] { "Category", "Attachment" }).ToListAsync();
+
+        return this.mapper.Map<IEnumerable<ProductResultDto>>(products);
+    }
+
     public async ValueTask<ProductResultDto> RetrieveByIdAsync(long id)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(id), 
@@ -142,6 +154,45 @@ public class ProductService : IProductService
         this.productRepository.Update(product);
         await this.productRepository.SaveAsync();
 
+        return this.mapper.Map<ProductResultDto>(product);
+    }
+
+    public async ValueTask<ProductResultDto> DefineSaleCountAsync(long productId)
+    {
+        var products = this.orderItemRepository.SelectAll(p => p.ProductId.Equals(productId));
+        var productQuantity = products.Select(p => p.CartItem.Quantity).Sum();
+        var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
+
+        return new ProductResultDto
+        {
+            Id = product.Id,
+            Quantity = product.Quantity,
+            Description = product.Description,
+            Name = product.Name,
+            Price = product.Price,
+            SaleCount = (int)productQuantity,
+        };
+    }
+
+    public async ValueTask<ProductResultDto> SetTopCountAsync(long productId, int saleCount)
+    {
+        var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
+        var productSaleCount = (await DefineSaleCountAsync(productId)).SaleCount;
+        if (saleCount <= productSaleCount)
+            product.IsTop = true;
+
+        this.productRepository.Update(product);
+        await this.productRepository.SaveAsync();
+
+        return this.mapper.Map<ProductResultDto>(product);
+    }
+
+    public async ValueTask<ProductResultDto> SetDiscountAsync(long productId, int discount)
+    {
+        var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
+        product.Discount = discount;
+        this.productRepository.Update(product);
+        await this.productRepository.SaveAsync();
         return this.mapper.Map<ProductResultDto>(product);
     }
 }
