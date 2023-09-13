@@ -160,9 +160,8 @@ public class ProductService : IProductService
     public async Task<ProductResultDto> DefineSaleCountAsync(long productId)
     {
         var products = this.orderItemRepository.SelectAll(p => p.ProductId.Equals(productId));
-        var productQuantity = products.Select(p => p.Id).Sum();
-        var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
-
+        var productQuantity = products.Select(p => p.CartItem.Quantity).Sum();
+        
         return new ProductResultDto
         {
             Id = product.Id,
