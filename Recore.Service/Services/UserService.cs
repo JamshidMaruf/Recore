@@ -9,6 +9,7 @@ using Recore.Data.IRepositories;
 using Recore.Domain.Configurations;
 using Recore.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Recore.Service.Services;
 
@@ -102,4 +103,23 @@ public class UserService : IUserService
 		var result = this.mapper.Map<UserResultDto>(existUser);
 		return result;
 	}
+
+    public async ValueTask<PaginationMetaData<IEnumerable<UserResultDto>>> GetPaginatedData(PaginationParams pagination)
+    {
+        var queryableData = repository.SelectAll();
+        var totalItems = queryableData.Count();
+        var paginatedData = await queryableData.Skip((pagination.PageIndex - 1) * pagination.PageSize)
+                                       .Take(pagination.PageSize)
+                                       .ToListAsync();
+
+        var result = new PaginationMetaData<IEnumerable<UserResultDto>>
+        {
+            Data = mapper.Map<List<UserResultDto>>(paginatedData),
+            TotalItems = totalItems,
+            PageIndex = pagination.PageIndex,
+            PageSize = pagination.PageSize
+        };
+
+        return result;
+    }
 }

@@ -12,4 +12,7 @@ public interface IRepository<T> where T : Auditable
     ValueTask<T> SelectAsync(Expression<Func<T, bool>> expression, string[] includes = null);
     IQueryable<T> SelectAll(Expression<Func<T, bool>> expression = null, bool isNoTracked = true, string[] includes = null);
     ValueTask SaveAsync();
+    //Unit of work kerak!
+    // Yechimlar kerak, ilmlilar kerak
+    // nimadir qilish kerak
 }

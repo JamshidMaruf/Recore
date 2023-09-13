@@ -13,4 +13,5 @@ public interface IUserService
     ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params);
     ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync();
     ValueTask<UserResultDto> UpgradeRoleAsync(long id, UserRole role);
+    ValueTask<PaginationMetaData<IEnumerable<UserResultDto>>> GetPaginatedData(PaginationParams pagination)
 }
