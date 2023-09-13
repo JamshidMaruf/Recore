@@ -73,7 +73,7 @@ public class UserService : IUserService
         return result;
     }
 
-    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params,string search = null)
+    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params, string search = null)
     {
         var users = await this.repository.SelectAll()
             .ToPaginate(@params)
