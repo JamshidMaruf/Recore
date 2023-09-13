@@ -9,6 +9,7 @@ using Recore.Service.DTOs.Districts;
 using Recore.Service.DTOs.Users;
 using Recore.Service.Exceptions;
 using Recore.Service.Extensions;
+using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
@@ -29,7 +30,7 @@ public class DistrictService : IDistrictService
         if (dbSource.Any())
             throw new AlreadyExistException("Districts are already exist");
         
-		string path = @"D:\\Lesson\\Recore\\Recore.Shared\\Files\\districts.json";
+		string path =PathHelper.DistrictPath;
 		var source = File.ReadAllText(path);
 		var districts = JsonConvert.DeserializeObject<IEnumerable<DistrictCreationDto>>(source);
 
