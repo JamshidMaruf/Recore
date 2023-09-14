@@ -29,9 +29,8 @@ public class VehicleService : IVehicleService
 
     public async ValueTask<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto)
     {
-        Vehicle vehicle = await this.repository.SelectAsync(u => u.Id.Equals(dto.Id));
-        if (vehicle is null)
-            throw new NotFoundException($"This vehicle is not found with ID = {dto.Id}");
+        Vehicle vehicle = await this.repository.SelectAsync(u => u.Id.Equals(dto.Id))
+            ?? throw new NotFoundException($"This vehicle is not found with ID = {dto.Id}");
 
         this.mapper.Map(dto, vehicle);
         this.repository.Update(vehicle);
@@ -43,9 +42,8 @@ public class VehicleService : IVehicleService
 
     public async ValueTask<bool> RemoveAsync(long id)
     {
-        Vehicle vehicle = await this.repository.SelectAsync(u => u.Id.Equals(id));
-        if (vehicle is null)
-            throw new NotFoundException($"This vehicle is not found with ID = {id}");
+        Vehicle vehicle = await this.repository.SelectAsync(u => u.Id.Equals(id))
+            ?? throw new NotFoundException($"This vehicle is not found with ID = {id}");
 
         this.repository.Delete(vehicle);
         await this.repository.SaveAsync();
@@ -61,9 +59,8 @@ public class VehicleService : IVehicleService
 
     public async ValueTask<VehicleResultDto> RetrieveByIdAsync(long id)
     {
-        Vehicle vehicle = await this.repository.SelectAsync(u => u.Id.Equals(id));
-        if (vehicle is null)
-            throw new NotFoundException($"This vehicle is not found with ID = {id}");
+        Vehicle vehicle = await this.repository.SelectAsync(u => u.Id.Equals(id))
+            ?? throw new NotFoundException($"This vehicle is not found with ID = {id}");
 
         var result = this.mapper.Map<VehicleResultDto>(vehicle);
         return result;
