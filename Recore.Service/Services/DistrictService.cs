@@ -45,9 +45,8 @@ public class DistrictService : IDistrictService
 
     public async ValueTask<DistrictResultDto> RetrieveByIdAsync(long id)
     {
-        var district = await this.repository.SelectAsync(r => r.Id.Equals(id), includes: new[] { "Region.Country" });
-        if (district is null)
-            throw new NotFoundException("This district is not found");
+        var district = await this.repository.SelectAsync(r => r.Id.Equals(id), includes: new[] { "Region.Country" })
+            ?? throw new NotFoundException("This district is not found");
 
         var mappedDistrict = this.mapper.Map<DistrictResultDto>(district);
         return mappedDistrict;

@@ -17,7 +17,7 @@ public class OrderService : IOrderService
 		this.repository = repository;
 	}
 
-	public async Task<OrderResultDto> AddAsync(OrderCreationDto dto)
+	public async ValueTask<OrderResultDto> AddAsync(OrderCreationDto dto)
     {
         var mappedOrder = this.mapper.Map<Order>(dto);
         await this.repository.CreateAsync(mappedOrder);
@@ -35,7 +35,7 @@ public class OrderService : IOrderService
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<OrderResultDto>> RetrieveAllAsync(PaginationParams @params, Filter filter, string search = null)
+    public ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync(PaginationParams @params, Filter filter, string search = null)
     {
         throw new NotImplementedException();
     }

@@ -44,9 +44,8 @@ public class RegionService : IRegionService
 
 	public async ValueTask<RegionResultDto> RetrieveByIdAsync(long id)
     {
-        var region = await this.repository.SelectAsync(r => r.Id.Equals(id), includes: new[] { "Country" });
-        if (region is null)
-            throw new NotFoundException("This region is not found");
+        var region = await this.repository.SelectAsync(r => r.Id.Equals(id), includes: new[] { "Country" })
+            ?? throw new NotFoundException("This region is not found");
 
         var mappedRegion = this.mapper.Map<RegionResultDto>(region);
         return mappedRegion;

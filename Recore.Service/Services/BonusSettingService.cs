@@ -12,13 +12,12 @@ namespace Recore.Service.Services;
 
 public class BonusSettingService : IBonusSettingService
 {
-    private readonly IRepository<BonusSetting> repository;
     private readonly IMapper mapper;
-
+    private readonly IRepository<BonusSetting> repository;
     public BonusSettingService(IRepository<BonusSetting> repository, IMapper mapper)
     {
-        this.repository = repository;
         this.mapper = mapper;
+        this.repository = repository;
     }
 
     public async ValueTask<BonusSettingResultDto> AddAsync(BonusSettingCreationDto dto)
@@ -32,9 +31,8 @@ public class BonusSettingService : IBonusSettingService
 
     public async ValueTask<BonusSettingResultDto> ModifyAsync(BonusSettingUpdateDto dto)
     {
-        var existBonusSetting = await this.repository.SelectAsync(b => b.Id.Equals(dto.Id));
-        if (existBonusSetting is not null)
-            throw new NotFoundException("This bonus setting Id is not found");
+        var existBonusSetting = await this.repository.SelectAsync(b => b.Id.Equals(dto.Id))
+            ?? throw new NotFoundException($"This bonus setting is not found with ID = {dto.Id}");
 
         var mappedBonusSetting = this.mapper.Map<BonusSetting>(dto);
         this.repository.Update(mappedBonusSetting);
@@ -45,9 +43,8 @@ public class BonusSettingService : IBonusSettingService
 
     public async ValueTask<bool> RemoveAsync(long id)
     {
-        var existBonusSetting = await this.repository.SelectAsync(b => b.Id.Equals(id));
-        if (existBonusSetting is not null)
-            throw new NotFoundException("This bonus setting Id is not found");
+        var existBonusSetting = await this.repository.SelectAsync(b => b.Id.Equals(id))
+            ?? throw new NotFoundException($"This bonus setting is not found with ID = {id}");
 
         this.repository.Delete(existBonusSetting);
         await this.repository.SaveAsync();
@@ -56,9 +53,8 @@ public class BonusSettingService : IBonusSettingService
 
     public async ValueTask<BonusSettingResultDto> RetrieveByIdAsync(long id)
     {
-        var existBonusSetting = await this.repository.SelectAsync(b => b.Id.Equals(id));
-        if (existBonusSetting is not null)
-            throw new NotFoundException("This bonus setting Id is not found");
+        var existBonusSetting = await this.repository.SelectAsync(b => b.Id.Equals(id))
+            ?? throw new NotFoundException($"This bonus setting is not found with ID = {id}");
         return this.mapper.Map<BonusSettingResultDto>(existBonusSetting);
     }
 
