@@ -36,11 +36,11 @@ public class AuthService : IAuthService
 		var tokenDescriptor = new SecurityTokenDescriptor
 		{
 			Subject = new ClaimsIdentity(new Claim[]
-		  {
-			 new Claim("Phone", user.Phone),
-			 new Claim("Id", user.Id.ToString()),
-			 new Claim(ClaimTypes.Role, user.Role.ToString())
-		  }),
+			{
+				 new Claim("Phone", user.Phone),
+				 new Claim("Id", user.Id.ToString()),
+				 new Claim(ClaimTypes.Role, user.Role.ToString())
+		    }),
 			Expires = DateTime.UtcNow.AddHours(1),
 			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
 		};

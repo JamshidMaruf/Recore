@@ -1,4 +1,5 @@
-﻿using Recore.Domain.Configurations;
+﻿using MailKit.Search;
+using Recore.Domain.Configurations;
 
 namespace Recore.Service.Extensions;
 

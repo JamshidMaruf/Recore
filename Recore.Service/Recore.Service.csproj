@@ -21,8 +21,4 @@
     <ProjectReference Include="..\Recore.Domain\Recore.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\Carts\" />
-  </ItemGroup>
-
 </Project>

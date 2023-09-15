@@ -1,12 +1,27 @@
-﻿using Recore.Service.DTOs.Orders;
+﻿using AutoMapper;
+using Recore.Data.IRepositories;
+using Recore.Domain.Configurations;
+using Recore.Domain.Entities.Orders;
+using Recore.Service.DTOs.Orders;
 using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
 
 public class OrderService : IOrderService
 {
-    public ValueTask<OrderResultDto> AddAsync(OrderCreationDto dto)
+    private readonly IMapper mapper;
+    private readonly IRepository<Order> repository;
+	public OrderService(IMapper mapper, IRepository<Order> repository)
+	{
+		this.mapper = mapper;
+		this.repository = repository;
+	}
+
+	public async ValueTask<OrderResultDto> AddAsync(OrderCreationDto dto)
     {
+        var mappedOrder = this.mapper.Map<Order>(dto);
+        await this.repository.CreateAsync(mappedOrder);
+
         throw new NotImplementedException();
     }
 
@@ -20,7 +35,7 @@ public class OrderService : IOrderService
         throw new NotImplementedException();
     }
 
-    public ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync()
+    public ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync(PaginationParams @params, Filter filter, string search = null)
     {
         throw new NotImplementedException();
     }

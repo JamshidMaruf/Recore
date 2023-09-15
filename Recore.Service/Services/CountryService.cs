@@ -22,6 +22,7 @@ public class CountryService : ICountryService
         this.mapper = mapper;
         this.repository = repository;
     }
+
     public async ValueTask<bool> SetAsync()
     {
 		var dbSource = this.repository.SelectAll();
@@ -43,9 +44,8 @@ public class CountryService : ICountryService
 
     public async ValueTask<CountryResultDto> RetrieveByIdAsync(long id)
     {
-        var country = await this.repository.SelectAsync(r => r.Id.Equals(id));
-        if (country is null)
-            throw new NotFoundException("This country is not found");
+        var country = await this.repository.SelectAsync(r => r.Id.Equals(id))
+            ?? throw new NotFoundException("This country is not found");
 
         var mappedCountry = this.mapper.Map<CountryResultDto>(country);
         return mappedCountry;

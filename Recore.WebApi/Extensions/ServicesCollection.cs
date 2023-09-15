@@ -20,11 +20,13 @@ public static class ServicesCollection
         services.AddScoped<IRegionService, RegionService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IDistrictService, DistrictService>();
-		services.AddScoped<IAuthService, AuthService>();
-		services.AddScoped<IProductService, ProductService>();
-		services.AddScoped<IEmailService, EmailService>();
-		services.AddScoped<IAttachmentService, AttachmentService>();
-		services.AddScoped<IProductCategoryService, ProductCategoryService>();
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IAttachmentService, AttachmentService>();
+        services.AddScoped<IProductCategoryService, ProductCategoryService>();
+        services.AddScoped<IAddressService, AddressService>();
+        services.AddScoped<IBonusSettingService, BonusSettingService>();
         services.AddAutoMapper(typeof(MappingProfile));
     }
 

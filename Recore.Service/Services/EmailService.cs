@@ -15,6 +15,7 @@ public class EmailService : IEmailService
     {
         _settings = options.Value;
     }
+
     public async ValueTask SendEmailAsync(MailRequest request)
     {
         var email = new MimeMessage();

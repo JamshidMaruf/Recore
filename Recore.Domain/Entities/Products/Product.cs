@@ -8,9 +8,6 @@ public class Product : Auditable
 {
     public string Name { get; set; }
     public string Description { get; set; }
-    public double Quantity { get; set; }
-    public Unit Unit { get; set; }
-    public decimal Price { get; set; }
     public bool IsTop { get; set; }
     public int Discount { get; set; }
     public int CountTop { get; set; }

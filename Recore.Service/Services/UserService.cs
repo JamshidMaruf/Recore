@@ -39,9 +39,8 @@ public class UserService : IUserService
 
     public async ValueTask<UserResultDto> ModifyAsync(UserUpdateDto dto)
     {
-        User existUser = await this.repository.SelectAsync(u => u.Id.Equals(dto.Id));
-        if (existUser is null)
-            throw new NotFoundException($"This user is not found with ID = {dto.Id}");
+        User existUser = await this.repository.SelectAsync(u => u.Id.Equals(dto.Id))
+            ?? throw new NotFoundException($"This user is not found with ID = {dto.Id}");
 
         this.mapper.Map(dto, existUser);
         existUser.Password = PasswordHash.Encrypt(dto.Password);
@@ -54,9 +53,8 @@ public class UserService : IUserService
 
     public async ValueTask<bool> RemoveAsync(long id)
     {
-        User existUser = await this.repository.SelectAsync(u => u.Id.Equals(id));
-        if (existUser is null)
-            throw new NotFoundException($"This user is not found with ID = {id}");
+        User existUser = await this.repository.SelectAsync(u => u.Id.Equals(id))
+            ?? throw new NotFoundException($"This user is not found with ID = {id}");
 
         this.repository.Delete(existUser);
         await this.repository.SaveAsync();
@@ -65,15 +63,14 @@ public class UserService : IUserService
 
     public async ValueTask<UserResultDto> RetrieveByIdAsync(long id)
     {
-        User existUser = await this.repository.SelectAsync(u => u.Id.Equals(id));
-        if (existUser is null)
-            throw new NotFoundException($"This user is not found with ID = {id}");
+        User existUser = await this.repository.SelectAsync(u => u.Id.Equals(id))
+            ?? throw new NotFoundException($"This user is not found with ID = {id}");
 
         var result = this.mapper.Map<UserResultDto>(existUser);
         return result;
     }
 
-    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params,string search = null)
+    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params, string search = null)
     {
         var users = await this.repository.SelectAll()
             .ToPaginate(@params)
@@ -82,9 +79,6 @@ public class UserService : IUserService
         var result = users.Where(user => user.FirstName.Contains(search, StringComparison.OrdinalIgnoreCase));
         var mappedUsers = this.mapper.Map<List<UserResultDto>>(result);
         return mappedUsers;
-
-        //var result = this.mapper.Map<IEnumerable<UserResultDto>>(users);
-        //return result;
     }
 
     public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync()
@@ -97,9 +91,8 @@ public class UserService : IUserService
 
     public async ValueTask<UserResultDto> UpgradeRoleAsync(long id, UserRole role)
 	{
-		User existUser = await this.repository.SelectAsync(u => u.Id.Equals(id));
-		if (existUser is null)
-			throw new NotFoundException($"This user is not found with ID = {id}");
+		User existUser = await this.repository.SelectAsync(u => u.Id.Equals(id))
+			?? throw new NotFoundException($"This user is not found with ID = {id}");
 
         existUser.Role = role;
 		await this.repository.SaveAsync();
