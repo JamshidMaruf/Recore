@@ -34,7 +34,7 @@ public class BonusSettingService : IBonusSettingService
         var existBonusSetting = await this.repository.SelectAsync(b => b.Id.Equals(dto.Id))
             ?? throw new NotFoundException($"This bonus setting is not found with ID = {dto.Id}");
 
-        var mappedBonusSetting = this.mapper.Map<BonusSetting>(dto);
+        var mappedBonusSetting = this.mapper.Map(dto, existBonusSetting);
         this.repository.Update(mappedBonusSetting);
         await this.repository.SaveAsync();
 
