@@ -56,8 +56,22 @@ public class CartItemService : ICartItemService
 			await this.cartItemRepository.SaveAsync();
 		}
 
+		var cart = new Cart();
+		await this.cartRepository.CreateAsync(cart);
+		foreach (var item in dto.Details)
+		{
+			var cartItem = new CartItem
+			{
+				Price = item.Price,
+				CartId = cart.Id,
+				Quantity = item.Quantity,
+				ProductId = item.ProductId,
+			};
+			await this.cartItemRepository.CreateAsync(cartItem);
+		}
+		await this.cartItemRepository.SaveAsync();
 
-
+		throw new NotImplementedException();
 	}
 
 	public ValueTask<CartItemResultDto> ModifyAsync(CartItemUpdateDto dto)
