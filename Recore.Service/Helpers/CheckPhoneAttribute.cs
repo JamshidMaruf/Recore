@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-public class PhoneAttribute : ValidationAttribute
+public class CheckPhoneAttribute : ValidationAttribute
 {
     public override bool IsValid(object value)
     {
