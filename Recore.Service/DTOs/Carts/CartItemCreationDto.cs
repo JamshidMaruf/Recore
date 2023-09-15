@@ -5,8 +5,5 @@ namespace Recore.Service.DTOs.Carts;
 
 public class CartItemCreationDto
 {
-	public double Quantity { get; set; }
-	public decimal Price { get; set; }
-	public int CartId { get; set; }
-	public long ProductId { get; set; }
+	public List<CartItemDetail> Details { get; set; } = new();
 }
