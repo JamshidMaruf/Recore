@@ -10,5 +10,6 @@ public interface IWareHouseService
 	ValueTask<WareHouseResultDto> ModifyAsync(WareHouseUpdateDto dto);
 	ValueTask<bool> RemoveAsync(long id);
 	ValueTask<WareHouseResultDto> RetrieveByIdAsync(long id);
-	ValueTask<IEnumerable<BonusSettingResultDto>> RetrieveAllAsync(PaginationParams @params);
+	ValueTask<IEnumerable<WareHouseResultDto>> RetrieveAllAsync(PaginationParams @params, string search = null);
+	ValueTask<IEnumerable<WareHouseResultDto>> RetrieveAllAsync();
 }
