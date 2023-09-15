@@ -4,6 +4,7 @@ using Recore.Domain.Entities.Attachments;
 using Recore.Domain.Entities.Bonuses;
 using Recore.Domain.Entities.Products;
 using Recore.Domain.Entities.Users;
+using Recore.Domain.Entities.WareHouses;
 using Recore.Service.DTOs.Attachments;
 using Recore.Service.DTOs.BonusSetting;
 using Recore.Service.DTOs.Countries;
@@ -12,6 +13,7 @@ using Recore.Service.DTOs.ProductCategories;
 using Recore.Service.DTOs.Products;
 using Recore.Service.DTOs.Regions;
 using Recore.Service.DTOs.Users;
+using Recore.Service.DTOs.WareHouses;
 
 namespace Recore.Service.Mappers;
 
@@ -54,5 +56,10 @@ public class MappingProfile : Profile
         CreateMap<BonusSetting, BonusSettingResultDto>().ReverseMap();
         CreateMap<BonusSettingCreationDto, BonusSetting>().ReverseMap();
         CreateMap<BonusSettingUpdateDto, BonusSetting>().ReverseMap();
-    }
+
+		//WareHouse 
+		CreateMap<WareHouse, WareHouseResultDto>().ReverseMap();
+		CreateMap<WareHouseCreationDto, WareHouse>().ReverseMap();
+		CreateMap<WareHouseUpdateDto, WareHouse>().ReverseMap();
+	}
 }
