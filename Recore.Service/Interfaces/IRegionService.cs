@@ -5,7 +5,7 @@ namespace Recore.Service.Interfaces;
 
 public interface IRegionService
 {
-    Task<bool> SetAsync();
-    Task<RegionResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<RegionResultDto>> RetrieveAllAsync(PaginationParams @params);
+    ValueTask<bool> SetAsync();
+    ValueTask<RegionResultDto> RetrieveByIdAsync(long id);
+    ValueTask<IEnumerable<RegionResultDto>> RetrieveAllAsync(PaginationParams @params);
 }

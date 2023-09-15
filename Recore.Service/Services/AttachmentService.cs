@@ -16,7 +16,7 @@ public class AttachmentService : IAttachmentService
         this.repository = repository;
     }
 
-    public async Task<Attachment> UploadAsync(AttachmentCreationDto dto)
+    public async ValueTask<Attachment> UploadAsync(AttachmentCreationDto dto)
     {
         var webrootPath = Path.Combine(PathHelper.WebRootPath, "Files");
 
@@ -41,7 +41,7 @@ public class AttachmentService : IAttachmentService
         return createdAttachment;
     }
 
-    public async Task<bool> RemoveAsync(Attachment attachment)
+    public async ValueTask<bool> RemoveAsync(Attachment attachment)
     {
         this.repository.Delete(attachment);
         await this.repository.SaveAsync();

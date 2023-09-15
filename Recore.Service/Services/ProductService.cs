@@ -33,7 +33,7 @@ public class ProductService : IProductService
         this.orderItemRepository = orderItemRepository;
     }
 
-    public async Task<ProductResultDto> AddAsync(ProductCreationDto dto)
+    public async ValueTask<ProductResultDto> AddAsync(ProductCreationDto dto)
     {
         var product = await this.productRepository.SelectAsync(p => p.Name.Equals(dto.Name), includes: new[] { "Attachment" });
         if (product is not null)
@@ -51,20 +51,19 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(mappedProduct);
     }
 
-    public async Task<ProductResultDto> IncreaseQuantityAsync(long productId, double quantity)
+    public async ValueTask<ProductResultDto> IncreaseQuantityAsync(long productId, double quantity)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId), 
             includes: new[] { "Category", "Attachment" })
             ?? throw new NotFoundException("This product is not found");
 
-        product.Quantity += quantity;
         product.UpdatedAt = DateTime.UtcNow;
         await this.productRepository.SaveAsync();
 
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<ProductResultDto> ModifyAsync(ProductUpdateDto dto)
+    public async ValueTask<ProductResultDto> ModifyAsync(ProductUpdateDto dto)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(dto.Id), includes: new[] { "Attachment" })
             ?? throw new NotFoundException("This product is not found");
@@ -81,7 +80,7 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<bool> RemoveAsync(long id)
+    public async ValueTask<bool> RemoveAsync(long id)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(id))
             ?? throw new NotFoundException("This product is not found");
@@ -91,7 +90,7 @@ public class ProductService : IProductService
         return true;
     }
 
-    public async Task<IEnumerable<ProductResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async ValueTask<IEnumerable<ProductResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var products = await this.productRepository.SelectAll(includes: new[] { "Category", "Attachment" })
             .ToPaginate(@params)
@@ -100,7 +99,7 @@ public class ProductService : IProductService
         return this.mapper.Map<IEnumerable<ProductResultDto>>(products);
     }
 
-    public async Task<IEnumerable<ProductResultDto>> RetrieveAllAsync()
+    public async ValueTask<IEnumerable<ProductResultDto>> RetrieveAllAsync()
     {
         var products = await this.productRepository.SelectAll(includes: new[] { "Category", "Attachment" })
             .ToListAsync();
@@ -108,7 +107,7 @@ public class ProductService : IProductService
         return this.mapper.Map<IEnumerable<ProductResultDto>>(products);
     }
 
-    public async Task<IEnumerable<ProductResultDto>> RetrieveAllAsync(long categoryId)
+    public async ValueTask<IEnumerable<ProductResultDto>> RetrieveAllAsync(long categoryId)
     {
         var products = await this.productRepository.SelectAll(expression: p => p.CategoryId == categoryId,
             includes: new[] { "Category", "Attachment" }).ToListAsync();
@@ -116,7 +115,7 @@ public class ProductService : IProductService
         return this.mapper.Map<IEnumerable<ProductResultDto>>(products);
     }
 
-    public async Task<ProductResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<ProductResultDto> RetrieveByIdAsync(long id)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(id), 
             includes: new[] { "Category", "Attachment" })
@@ -125,7 +124,7 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<ProductResultDto> ImageUploadAsync(long productId, AttachmentCreationDto dto)
+    public async ValueTask<ProductResultDto> ImageUploadAsync(long productId, AttachmentCreationDto dto)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId), includes: new[] { "Category" })
             ?? throw new NotFoundException("This product is not found");
@@ -140,7 +139,7 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<ProductResultDto> ModifyImageAsync(long productId, AttachmentCreationDto dto)
+    public async ValueTask<ProductResultDto> ModifyImageAsync(long productId, AttachmentCreationDto dto)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId), 
             includes: new[] { "Category", "Attachment" })
@@ -157,24 +156,22 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<ProductResultDto> DefineSaleCountAsync(long productId)
+    public async ValueTask<ProductResultDto> DefineSaleCountAsync(long productId)
     {
         var products = this.orderItemRepository.SelectAll(p => p.ProductId.Equals(productId));
-        var productQuantity = products.Select(p => p.Quantity).Sum();
-        var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
-
+        var productQuantity = products.Select(p => p.CartItem.Quantity).Sum();
+        var product = await this.productRepository.SelectAsync(product => product.Id.Equals(productId));
+        
         return new ProductResultDto
         {
             Id = product.Id,
-            Quantity = product.Quantity,
             Description = product.Description,
             Name = product.Name,
-            Price = product.Price,
             SaleCount = (int)productQuantity,
         };
     }
 
-    public async Task<ProductResultDto> SetTopCountAsync(long productId, int saleCount)
+    public async ValueTask<ProductResultDto> SetTopCountAsync(long productId, int saleCount)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
         var productSaleCount = (await DefineSaleCountAsync(productId)).SaleCount;
@@ -187,7 +184,7 @@ public class ProductService : IProductService
         return this.mapper.Map<ProductResultDto>(product);
     }
 
-    public async Task<ProductResultDto> SetDiscountAsync(long productId, int discount)
+    public async ValueTask<ProductResultDto> SetDiscountAsync(long productId, int discount)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
         product.Discount = discount;

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Recore.Data.Contexts;
@@ -25,6 +26,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 // Add Custom services
 builder.Services.AddServices();
 
@@ -32,6 +34,13 @@ builder.Services.ConfigureSwagger();
 
 // JWT
 builder.Services.AddJwt(builder.Configuration);
+
+// Lowercase routing
+
+builder.Services.AddControllers(options =>
+{
+    options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+});
 
 // Logger
 var logger = new LoggerConfiguration()
@@ -44,6 +53,11 @@ builder.Logging.AddSerilog(logger);
 var app = builder.Build();
 
 PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
+
+PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>(("FilePath:CountryFilePaths")));
+PathHelper.RegionPath = Path.GetFullPath(builder.Configuration.GetValue<string>(("FilePath:RegionFilePaths")));
+PathHelper.DistrictPath = Path.GetFullPath(builder.Configuration.GetValue<string>(("FilePath:DictrictsFilePaths")));
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

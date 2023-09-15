@@ -21,7 +21,7 @@ public class AuthService : IAuthService
 		this.userRepository = userRepository;
 	}
 
-	public async Task<string> GenerateTokenAsync(string phone, string originalPassword)
+	public async ValueTask<string> GenerateTokenAsync(string phone, string originalPassword)
 	{
 		var user = await this.userRepository.SelectAsync(u => u.Phone.Equals(phone));
 		if (user is null)
@@ -36,11 +36,11 @@ public class AuthService : IAuthService
 		var tokenDescriptor = new SecurityTokenDescriptor
 		{
 			Subject = new ClaimsIdentity(new Claim[]
-		  {
-			 new Claim("Phone", user.Phone),
-			 new Claim("Id", user.Id.ToString()),
-			 new Claim(ClaimTypes.Role, user.Role.ToString())
-		  }),
+			{
+				 new Claim("Phone", user.Phone),
+				 new Claim("Id", user.Id.ToString()),
+				 new Claim(ClaimTypes.Role, user.Role.ToString())
+		    }),
 			Expires = DateTime.UtcNow.AddHours(1),
 			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
 		};

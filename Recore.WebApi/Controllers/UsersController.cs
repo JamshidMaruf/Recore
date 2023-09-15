@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Recore.Domain.Configurations;
 using Recore.Domain.Enums;
 using Recore.Service.DTOs.Users;
+using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
 using Recore.WebApi.Models;
 
@@ -11,9 +12,11 @@ namespace Recore.WebApi.Controllers;
 public class UsersController : BaseController
 {
     private readonly IUserService userService;
-    public UsersController(IUserService userService)
+    private readonly IEmailService emailService;
+    public UsersController(IUserService userService, IEmailService emailService)
     {
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     [HttpPost("create")]
@@ -57,12 +60,12 @@ public class UsersController : BaseController
 
 
     [HttpGet("get-all")]
-    public async ValueTask<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
+    public async ValueTask<IActionResult> GetAllAsync([FromQuery] PaginationParams @params,[FromQuery]string search)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.userService.RetrieveAllAsync(@params)
+            Data = await this.userService.RetrieveAllAsync(@params,search)
         });
 
 
@@ -74,4 +77,16 @@ public class UsersController : BaseController
 			Message = "Success",
 			Data = await this.userService.UpgradeRoleAsync(id, role)
 		});
+
+    [HttpPost("SendEmail")]
+    private async ValueTask<IActionResult> SendEmailAsync(string email)
+    {
+        MailRequest mailRequest = new MailRequest();
+        mailRequest.ToEmail = email;
+        mailRequest.Subject = $"Welcome To Recore {email}";
+        mailRequest.Body = "Thanks for subscribing us";
+        
+        await emailService.SendEmailAsync(mailRequest);
+        return Ok();
+    }
 }

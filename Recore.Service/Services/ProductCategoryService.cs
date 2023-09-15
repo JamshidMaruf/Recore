@@ -33,9 +33,8 @@ public class ProductCategoryService : IProductCategoryService
 
     public async ValueTask<ProductCategoryResultDto> ModifyAsync(ProductCategoryUpdateDto dto)
     {
-        var category = await this.repository.SelectAsync(c => c.Id.Equals(dto.Id), includes: new[] {"Products"} );
-        if (category is null)
-            throw new NotFoundException("This category is not found");
+        var category = await this.repository.SelectAsync(c => c.Id.Equals(dto.Id), includes: new[] {"Products"} )
+            ?? throw new NotFoundException("This category is not found");
 
         var mappedCategory = this.mapper.Map(dto, category);
         this.repository.Update(mappedCategory);
@@ -46,9 +45,8 @@ public class ProductCategoryService : IProductCategoryService
 
     public async ValueTask<bool> RemoveAsync(long id)
     {
-        var category = await this.repository.SelectAsync(c => c.Id.Equals(id));
-        if (category is null)
-            throw new NotFoundException("This category is not found");
+        var category = await this.repository.SelectAsync(c => c.Id.Equals(id))
+            ?? throw new NotFoundException("This category is not found");
 
         this.repository.Delete(category);
         await this.repository.SaveAsync();
@@ -57,9 +55,8 @@ public class ProductCategoryService : IProductCategoryService
  
     public async ValueTask<ProductCategoryResultDto> RetrieveByIdAsync(long id)
     {
-        var category = await this.repository.SelectAsync(c => c.Id.Equals(id), includes: new[] { "Products" });
-        if (category is null)
-            throw new NotFoundException("This category is not found");
+        var category = await this.repository.SelectAsync(c => c.Id.Equals(id), includes: new[] { "Products" })
+            ?? throw new NotFoundException("This category is not found");
 
         return this.mapper.Map<ProductCategoryResultDto>(category);
     }

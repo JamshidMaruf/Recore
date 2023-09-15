@@ -1,31 +1,32 @@
-﻿using Recore.Service.DTOs.Orders;
+﻿using Recore.Domain.Configurations;
+using Recore.Service.DTOs.Orders;
 using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
 
 public class OrderItemService : IOrderItemService
 {
-    public Task<OrderItemResultDto> AddAsync(OrderItemCreationDto dto)
+    public ValueTask<OrderItemResultDto> AddAsync(OrderItemCreationDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<OrderItemResultDto> ModifyAsync(OrderItemUpdateDto dto)
+    public ValueTask<OrderItemResultDto> ModifyAsync(OrderItemUpdateDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public ValueTask<bool> RemoveAsync(long id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<OrderItemResultDto>> RetrieveAllAsync()
+    public ValueTask<IEnumerable<OrderItemResultDto>> RetrieveAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<OrderItemResultDto> RetrieveByIdAsync(long id)
+    public ValueTask<OrderItemResultDto> RetrieveByIdAsync(long id)
     {
         throw new NotImplementedException();
     }

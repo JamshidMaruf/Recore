@@ -8,6 +8,7 @@ using Recore.Service.DTOs.Countries;
 using Recore.Service.DTOs.Regions;
 using Recore.Service.Exceptions;
 using Recore.Service.Extensions;
+using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
@@ -21,13 +22,14 @@ public class CountryService : ICountryService
         this.mapper = mapper;
         this.repository = repository;
     }
-    public async Task<bool> SetAsync()
+
+    public async ValueTask<bool> SetAsync()
     {
 		var dbSource = this.repository.SelectAll();
         if (dbSource.Any())
             throw new AlreadyExistException("Countries are already exist");
 
-		string path = @"D:\\Lesson\\Recore\\Recore.Shared\\Files\\countries.json";
+		string path = PathHelper.CountryPath;
 		var source = File.ReadAllText(path);
 		var countries = JsonConvert.DeserializeObject<IEnumerable<CountryCreationDto>>(source);
 
@@ -40,17 +42,16 @@ public class CountryService : ICountryService
 		return true;
     }
 
-    public async Task<CountryResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<CountryResultDto> RetrieveByIdAsync(long id)
     {
-        var country = await this.repository.SelectAsync(r => r.Id.Equals(id));
-        if (country is null)
-            throw new NotFoundException("This country is not found");
+        var country = await this.repository.SelectAsync(r => r.Id.Equals(id))
+            ?? throw new NotFoundException("This country is not found");
 
         var mappedCountry = this.mapper.Map<CountryResultDto>(country);
         return mappedCountry;
     }
  
-    public async Task<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async ValueTask<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var countries = await this.repository.SelectAll()
             .ToPaginate(@params)

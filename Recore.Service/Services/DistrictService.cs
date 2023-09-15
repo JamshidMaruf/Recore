@@ -9,6 +9,7 @@ using Recore.Service.DTOs.Districts;
 using Recore.Service.DTOs.Users;
 using Recore.Service.Exceptions;
 using Recore.Service.Extensions;
+using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
@@ -23,13 +24,13 @@ public class DistrictService : IDistrictService
         this.repository = repository;
     }
 
-    public async Task<bool> SetAsync()
+    public async ValueTask<bool> SetAsync()
     {
         var dbSource = this.repository.SelectAll();
         if (dbSource.Any())
             throw new AlreadyExistException("Districts are already exist");
         
-		string path = @"D:\\Lesson\\Recore\\Recore.Shared\\Files\\districts.json";
+		string path =PathHelper.DistrictPath;
 		var source = File.ReadAllText(path);
 		var districts = JsonConvert.DeserializeObject<IEnumerable<DistrictCreationDto>>(source);
 
@@ -42,17 +43,16 @@ public class DistrictService : IDistrictService
 		return true;
     }
 
-    public async Task<DistrictResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<DistrictResultDto> RetrieveByIdAsync(long id)
     {
-        var district = await this.repository.SelectAsync(r => r.Id.Equals(id), includes: new[] { "Region.Country" });
-        if (district is null)
-            throw new NotFoundException("This district is not found");
+        var district = await this.repository.SelectAsync(r => r.Id.Equals(id), includes: new[] { "Region.Country" })
+            ?? throw new NotFoundException("This district is not found");
 
         var mappedDistrict = this.mapper.Map<DistrictResultDto>(district);
         return mappedDistrict;
     }
 
-    public async Task<IEnumerable<DistrictResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async ValueTask<IEnumerable<DistrictResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var districts = await this.repository.SelectAll(includes: new[] { "Region.Country" })
             .ToPaginate(@params)
