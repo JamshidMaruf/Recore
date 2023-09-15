@@ -75,9 +75,6 @@ public class WareHouseService : IWareHouseService
 		var result = WareHouses.Where(WareHouse => WareHouse.Name.Contains(search, StringComparison.OrdinalIgnoreCase));
 		var mappedWareHouses = this.mapper.Map<List<WareHouseResultDto>>(result);
 		return mappedWareHouses;
-
-		//var result = this.mapper.Map<IEnumerable<WareHouseResultDto>>(WareHouses);
-		//return result;
 	}
 
 	public async ValueTask<IEnumerable<WareHouseResultDto>> RetrieveAllAsync()
