@@ -5,10 +5,10 @@ namespace Recore.Service.Interfaces;
 
 public interface ICartItemService
 {
-	ValueTask<CartItemResultDto> AddAsync(CartItemCreationDto dto);
+	ValueTask<IEnumerable<CartItemResultDto>> AddAsync(CartItemCreationDto dto);
 	ValueTask<CartItemResultDto> ModifyAsync(CartItemUpdateDto dto);
 	ValueTask<bool> RemoveAsync(long id);
 	ValueTask<bool> RemoveAllAsync(long cartId);
 	ValueTask<CartItemResultDto> RetrieveByIdAsync(long id);
-	ValueTask<IEnumerable<CartItemResultDto>> RetrieveAllAsync(Filter filter, long cartId);
+	IEnumerable<CartItemResultDto> RetrieveAll(Filter filter = null, long? cartId = null);
 }
