@@ -46,7 +46,6 @@ public class AuthService : IAuthService
 		};
 		var token = tokenHandler.CreateToken(tokenDescriptor);
 
-		string result = tokenHandler.WriteToken(token);
-		return result;
+        return tokenHandler.WriteToken(token);
 	}
 }
