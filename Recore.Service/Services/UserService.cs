@@ -79,9 +79,6 @@ public class UserService : IUserService
         var result = users.Where(user => user.FirstName.Contains(search, StringComparison.OrdinalIgnoreCase));
         var mappedUsers = this.mapper.Map<List<UserResultDto>>(result);
         return mappedUsers;
-
-        //var result = this.mapper.Map<IEnumerable<UserResultDto>>(users);
-        //return result;
     }
 
     public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync()

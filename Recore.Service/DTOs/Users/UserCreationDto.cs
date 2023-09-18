@@ -18,7 +18,7 @@ public class UserCreationDto
     [DisplayName("Password")]
     public string Password { get; set; }
 
-    [DisplayName("Phone")]
+    [DisplayName("Phone"), CheckPhone]
     public string Phone { get; set; }
 
     [DisplayName("Date of birth")]
