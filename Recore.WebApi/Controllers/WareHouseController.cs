@@ -8,7 +8,7 @@ using Recore.Service.DTOs.WareHouses;
 
 namespace Recore.WebApi.Controllers
 {
-	public class WareHouseController : Controller
+	public class WareHouseController : BaseController
 	{
 		private readonly IWareHouseService wareHouseService;
 		public WareHouseController(IWareHouseService wareHouseService)
