@@ -2,6 +2,7 @@
 using Recore.Domain.Entities.Addresses;
 using Recore.Domain.Entities.Attachments;
 using Recore.Domain.Entities.Bonuses;
+using Recore.Domain.Entities.Inventories;
 using Recore.Domain.Entities.Products;
 using Recore.Domain.Entities.Users;
 using Recore.Domain.Entities.WareHouses;
@@ -9,6 +10,8 @@ using Recore.Service.DTOs.Attachments;
 using Recore.Service.DTOs.BonusSetting;
 using Recore.Service.DTOs.Countries;
 using Recore.Service.DTOs.Districts;
+using Recore.Service.DTOs.Inventories;
+using Recore.Service.DTOs.InventoryLogs;
 using Recore.Service.DTOs.ProductCategories;
 using Recore.Service.DTOs.Products;
 using Recore.Service.DTOs.Regions;
@@ -61,5 +64,15 @@ public class MappingProfile : Profile
 		CreateMap<WareHouse, WareHouseResultDto>().ReverseMap();
 		CreateMap<WareHouseCreationDto, WareHouse>().ReverseMap();
 		CreateMap<WareHouseUpdateDto, WareHouse>().ReverseMap();
-	}
+
+        //Inventory 
+        CreateMap<Inventory, InventoryResultDto>().ReverseMap();
+        CreateMap<InventoryCreationDto, Inventory>().ReverseMap();
+        CreateMap<InventoryUpdateDto, Inventory>().ReverseMap();
+
+        //Inventory log
+        CreateMap<InventoryLog, InventoryResultDto>().ReverseMap();
+        CreateMap<InventoryLogCreationDto, InventoryLog>().ReverseMap();
+        CreateMap<InventoryLogUpdateDto, InventoryLog>().ReverseMap();
+    }
 }
