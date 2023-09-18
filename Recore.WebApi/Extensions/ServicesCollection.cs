@@ -16,6 +16,7 @@ public static class ServicesCollection
     public static void AddServices(this IServiceCollection services)
     {
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+		services.AddScoped<IVehicleService, VehicleService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IRegionService, RegionService>();
         services.AddScoped<ICountryService, CountryService>();
