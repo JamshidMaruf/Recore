@@ -12,8 +12,6 @@ public class Supplier : Auditable
     public long VehicleId { get; set; }
     public Vehicle Vehicle { get; set; }
 
-    public long AttachmentId { get; set; }
+    public long? AttachmentId { get; set; }
     public Attachment Attachment { get; set; }
 }
-
-
