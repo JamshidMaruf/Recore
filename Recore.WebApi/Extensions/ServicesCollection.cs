@@ -15,22 +15,23 @@ public static class ServicesCollection
     public static void AddServices(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MappingProfile));
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IRegionService, RegionService>();
+		services.AddScoped<IPaymentService, PaymentService>();
+		services.AddScoped<IVehicleService, VehicleService>();
         services.AddScoped<ICountryService, CountryService>();
-        services.AddScoped<IDistrictService, DistrictService>();
-        services.AddScoped<IAddressService, AddressService>();
-		    services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IProductService, ProductService>();
-        services.AddScoped<IProductCategoryService, ProductCategoryService>();
-        services.AddScoped<IBonusSettingService, BonusSettingService>();
+        services.AddScoped<IAddressService, AddressService>();
+        services.AddScoped<IDistrictService, DistrictService>();
+		services.AddScoped<IWareHouseService, WareHouseService>();
         services.AddScoped<IAttachmentService, AttachmentService>();
-		    services.AddScoped<IVehicleService, VehicleService>();
+        services.AddScoped<IBonusSettingService, BonusSettingService>();
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IProductCategoryService, ProductCategoryService>();
+		    services.AddScoped<IOrderService, OrderService>();
 		    services.AddScoped<ISupplierService, SupplierService>();
-		    services.AddScoped<IWareHouseService, WareHouseService>();
 		    services.AddScoped<IInventoryService, InventoryService>();
     }
 

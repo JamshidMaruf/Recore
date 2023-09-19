@@ -175,8 +175,6 @@ public class ProductService : IProductService
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
         var productSaleCount = (await DefineSaleCountAsync(productId)).SaleCount;
-        if (saleCount <= productSaleCount)
-            product.IsTop = true;
 
         this.productRepository.Update(product);
         await this.productRepository.SaveAsync();
@@ -187,7 +185,7 @@ public class ProductService : IProductService
     public async ValueTask<ProductResultDto> SetDiscountAsync(long productId, int discount)
     {
         var product = await this.productRepository.SelectAsync(p => p.Id.Equals(productId));
-        product.Discount = discount;
+       
         this.productRepository.Update(product);
         await this.productRepository.SaveAsync();
         return this.mapper.Map<ProductResultDto>(product);

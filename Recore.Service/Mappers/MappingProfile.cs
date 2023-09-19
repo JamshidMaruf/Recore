@@ -3,6 +3,8 @@ using Recore.Domain.Entities.Addresses;
 using Recore.Domain.Entities.Attachments;
 using Recore.Domain.Entities.Bonuses;
 using Recore.Domain.Entities.Inventories;
+using Recore.Domain.Entities.Orders;
+using Recore.Domain.Entities.Payments;
 using Recore.Domain.Entities.Products;
 using Recore.Domain.Entities.Suppliers;
 using Recore.Domain.Entities.Users;
@@ -14,6 +16,8 @@ using Recore.Service.DTOs.Countries;
 using Recore.Service.DTOs.Districts;
 using Recore.Service.DTOs.Inventories;
 using Recore.Service.DTOs.InventoryLogs;
+using Recore.Service.DTOs.Orders;
+using Recore.Service.DTOs.Payments;
 using Recore.Service.DTOs.ProductCategories;
 using Recore.Service.DTOs.Products;
 using Recore.Service.DTOs.Regions;
@@ -88,6 +92,16 @@ public class MappingProfile : Profile
         CreateMap<Address, AddressResultDto>().ReverseMap();
         CreateMap<AddressCreationDto, Address>().ReverseMap();
         CreateMap<AddressUpdateDto, Address>().ReverseMap();
+        
+        //Payment
+        CreateMap<Payment, PaymentResultDto>().ReverseMap();
+        CreateMap<PaymentCreationDto, Payment>().ReverseMap();
+        CreateMap<PaymentUpdateDto, Payment>().ReverseMap();
+        
+        //Order
+        CreateMap<Order, OrderResultDto>().ReverseMap();
+        CreateMap<OrderCreationDto, Order>().ReverseMap();
+        CreateMap<OrderUpdateDto, Order>().ReverseMap();
 
         //Supplier
         CreateMap<Supplier, SupplierResultDto>().ReverseMap();
