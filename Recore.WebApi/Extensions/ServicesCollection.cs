@@ -15,21 +15,22 @@ public static class ServicesCollection
 {
     public static void AddServices(this IServiceCollection services)
     {
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-		services.AddScoped<IVehicleService, VehicleService>();
+        services.AddAutoMapper(typeof(MappingProfile));
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IRegionService, RegionService>();
+		services.AddScoped<IPaymentService, PaymentService>();
+		services.AddScoped<IVehicleService, VehicleService>();
         services.AddScoped<ICountryService, CountryService>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<IDistrictService, DistrictService>();
 		services.AddScoped<IWareHouseService, WareHouseService>();
-        services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IProductService, ProductService>();
-        services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IAttachmentService, AttachmentService>();
-        services.AddScoped<IProductCategoryService, ProductCategoryService>();
-        services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<IBonusSettingService, BonusSettingService>();
-        services.AddAutoMapper(typeof(MappingProfile));
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IProductCategoryService, ProductCategoryService>();
     }
 
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
