@@ -1,6 +1,7 @@
 ﻿using Recore.Domain.Commons;
 using Recore.Domain.Entities.Users;
 using Recore.Domain.Entities.Orders;
+using Recore.Domain.Entities.Settings;
 
 namespace Recore.Domain.Entities.Bonuses;
 

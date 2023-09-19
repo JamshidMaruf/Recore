@@ -5,8 +5,8 @@ using Recore.Service.Extensions;
 using Recore.Service.Interfaces;
 using Recore.Domain.Configurations;
 using Microsoft.EntityFrameworkCore;
-using Recore.Domain.Entities.Bonuses;
 using Recore.Service.DTOs.BonusSetting;
+using Recore.Domain.Entities.Settings;
 
 namespace Recore.Service.Services;
 

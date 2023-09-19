@@ -5,6 +5,7 @@ using Recore.Domain.Entities.Bonuses;
 using Recore.Domain.Entities.Inventories;
 using Recore.Domain.Entities.Orders;
 using Recore.Domain.Entities.Products;
+using Recore.Domain.Entities.Settings;
 using Recore.Domain.Entities.Suppliers;
 using Recore.Domain.Entities.Users;
 

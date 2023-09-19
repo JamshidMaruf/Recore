@@ -5,6 +5,7 @@ using Recore.Data.IRepositories;
 using Recore.Domain.Entities.Bonuses;
 using Recore.Domain.Entities.Carts;
 using Recore.Domain.Entities.Orders;
+using Recore.Domain.Entities.Settings;
 using Recore.Domain.Entities.WareHouses;
 using Recore.Domain.Enums;
 using Recore.Service.DTOs.Addresses;
@@ -138,30 +139,58 @@ public class CheckoutService : ICheckoutService
 					}
 				}
 
-				if (order.CreatedAt > item.StartTime && order.CreatedAt < item.EndTime)
+				if (item.IsDate)
 				{
-					switch (item.Type)
+					if(order.CreatedAt > item.StartTime && order.CreatedAt < item.EndTime)
 					{
-						case BonusSettingType.Amount:
-							bonus.OrderId = order.Id;
-							bonus.BonusSettingId = item.Id;
-							bonus.UserId = HttpContextHelper.GetUserId;
-							bonus.Amount = lastBonus.Amount + item.Amount;
-							break;
-						case BonusSettingType.Percentage:
-							bonus.OrderId = order.Id;
-							bonus.BonusSettingId = item.Id;
-							bonus.UserId = HttpContextHelper.GetUserId;
-							bonus.Amount = lastBonus.Amount + ((priceOfOrder / 100) * item.Amount);
-							break;
-						case BonusSettingType.Gift:
-							break;
-						default:
-							break;
+						switch (item.Type)
+						{
+							case BonusSettingType.Amount:
+								bonus.OrderId = order.Id;
+								bonus.BonusSettingId = item.Id;
+								bonus.UserId = HttpContextHelper.GetUserId;
+								bonus.Amount = lastBonus.Amount + item.Amount;
+								break;
+							case BonusSettingType.Percentage:
+								bonus.OrderId = order.Id;
+								bonus.BonusSettingId = item.Id;
+								bonus.UserId = HttpContextHelper.GetUserId;
+								bonus.Amount = lastBonus.Amount + ((priceOfOrder / 100) * item.Amount);
+								break;
+							case BonusSettingType.Gift:
+								break;
+							default:
+								break;
+						}
 					}
 				}
 			}
         }
 		throw new NotImplementedException();
     }
+
+	private async Task<OrderResultDto> CheckPromoCodeAsync(string promoCode, OrderResultDto order, List<OrderItem> orderItems)
+	{
+		var bonusSettings = banusSettingRepository.SelectAll();
+		var priceOfOrder = orderItems.Sum(orderItem => orderItem.Summ);
+
+		if (!string.IsNullOrEmpty(promoCode))
+		{
+			foreach (var item in bonusSettings)
+			{
+				if (priceOfOrder >= item.From && priceOfOrder < item.To)
+				{
+					if (item.IsDate)
+					{
+						if (order.CreatedAt > item.StartTime && order.CreatedAt < item.EndTime)
+						{
+
+						}
+					}
+				}
+			}
+		}
+
+		throw new NotImplementedException();
+	}
 }

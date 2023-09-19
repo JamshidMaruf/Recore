@@ -1,7 +1,7 @@
 ﻿using Recore.Domain.Commons;
 using Recore.Domain.Enums;
 
-namespace Recore.Domain.Entities.Bonuses;
+namespace Recore.Domain.Entities.Settings;
 
 public class BonusSetting : Auditable
 {
@@ -25,6 +25,8 @@ public class BonusSetting : Auditable
     /// </summary>
     public string PromoCode { get; set; }
 
+    public int PromoCodeCount { get; set; }
+
     /// <summary>
     /// Amount for order that if requirments are true 
     /// </summary>
@@ -44,7 +46,7 @@ public class BonusSetting : Auditable
     /// Number of order that If customer order in some time
     /// </summary>
     public int OrderQuantity { get; set; }
-    
+
     /// <summary>
     /// Start time for giving bonus
     /// </summary>
