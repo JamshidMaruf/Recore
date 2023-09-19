@@ -6,7 +6,6 @@ using Recore.Data.Repositories;
 using Recore.Service.Interfaces;
 using Recore.Service.Mappers;
 using Recore.Service.Services;
-using System.Collections;
 using System.Text;
 
 namespace Recore.WebApi.Extensions;
@@ -17,21 +16,22 @@ public static class ServicesCollection
     {
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IRegionService, RegionService>();
         services.AddScoped<ICountryService, CountryService>();
-        services.AddScoped<IProductService, ProductService>();
-        services.AddScoped<IAddressService, AddressService>();
-		services.AddScoped<IVehicleService, VehicleService>();
         services.AddScoped<IDistrictService, DistrictService>();
-		services.AddScoped<ISupplierService, SupplierService>();
-		services.AddScoped<IWareHouseService, WareHouseService>();
-        services.AddScoped<IAttachmentService, AttachmentService>();
-        services.AddScoped<IBonusSettingService, BonusSettingService>();
+        services.AddScoped<IAddressService, AddressService>();
+		    services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IProductCategoryService, ProductCategoryService>();
-		services.AddScoped<IInventoryService, InventoryService>();
+        services.AddScoped<IBonusSettingService, BonusSettingService>();
+        services.AddScoped<IAttachmentService, AttachmentService>();
+		    services.AddScoped<IVehicleService, VehicleService>();
+		    services.AddScoped<ISupplierService, SupplierService>();
+		    services.AddScoped<IWareHouseService, WareHouseService>();
+		    services.AddScoped<IInventoryService, InventoryService>();
     }
 
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
