@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Recore.Data.IRepositories;
 using Recore.Domain.Configurations;
 using Recore.Domain.Entities.Orders;
-using Recore.Domain.Entities.Suppliers;
-using Recore.Service.DTOs.Orders;
-using Recore.Service.DTOs.Orders;
-using Recore.Service.DTOs.Orders;
-using Recore.Service.DTOs.Orders;
 using Recore.Service.DTOs.Orders;
 using Recore.Service.Exceptions;
 using Recore.Service.Extensions;
@@ -64,7 +59,7 @@ public class OrderService : IOrderService
         return this.mapper.Map<OrderResultDto>(order);
     }
 
-    public async ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync(PaginationParams @params, Filter filter, string search = null)
+    public async ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var orders = await this.repository.SelectAll()
             .ToPaginate(@params)

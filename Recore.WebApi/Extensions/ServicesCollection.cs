@@ -6,7 +6,6 @@ using Recore.Data.Repositories;
 using Recore.Service.Interfaces;
 using Recore.Service.Mappers;
 using Recore.Service.Services;
-using System.Collections;
 using System.Text;
 
 namespace Recore.WebApi.Extensions;
@@ -31,8 +30,9 @@ public static class ServicesCollection
         services.AddScoped<IBonusSettingService, BonusSettingService>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IProductCategoryService, ProductCategoryService>();
+		    services.AddScoped<IOrderService, OrderService>();
+		    services.AddScoped<ISupplierService, SupplierService>();
 		    services.AddScoped<IInventoryService, InventoryService>();
-        services.AddAutoMapper(typeof(MappingProfile));
     }
 
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)

@@ -21,6 +21,7 @@ using Recore.Service.DTOs.Payments;
 using Recore.Service.DTOs.ProductCategories;
 using Recore.Service.DTOs.Products;
 using Recore.Service.DTOs.Regions;
+using Recore.Service.DTOs.Suppliers;
 using Recore.Service.DTOs.Users;
 using Recore.Service.DTOs.Vehicles;
 using Recore.Service.DTOs.WareHouses;
@@ -101,5 +102,10 @@ public class MappingProfile : Profile
         CreateMap<Order, OrderResultDto>().ReverseMap();
         CreateMap<OrderCreationDto, Order>().ReverseMap();
         CreateMap<OrderUpdateDto, Order>().ReverseMap();
+
+        //Supplier
+        CreateMap<Supplier, SupplierResultDto>().ReverseMap();
+        CreateMap<SupplierCreationDto, Supplier>().ReverseMap();
+        CreateMap<SupplierUpdateDto, Supplier>().ReverseMap();
     }
 }
