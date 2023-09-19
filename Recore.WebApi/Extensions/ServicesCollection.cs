@@ -31,6 +31,8 @@ public static class ServicesCollection
         services.AddScoped<IBonusSettingService, BonusSettingService>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IProductCategoryService, ProductCategoryService>();
+		    services.AddScoped<IInventoryService, InventoryService>();
+        services.AddAutoMapper(typeof(MappingProfile));
     }
 
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
