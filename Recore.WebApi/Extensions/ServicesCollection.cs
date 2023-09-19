@@ -27,6 +27,7 @@ public static class ServicesCollection
         services.AddScoped<IProductCategoryService, ProductCategoryService>();
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<IBonusSettingService, BonusSettingService>();
+        services.AddScoped<IOrderGiftService, OrderGiftService>();
         services.AddAutoMapper(typeof(MappingProfile));
     }
 

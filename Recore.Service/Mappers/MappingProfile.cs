@@ -2,6 +2,7 @@
 using Recore.Domain.Entities.Addresses;
 using Recore.Domain.Entities.Attachments;
 using Recore.Domain.Entities.Bonuses;
+using Recore.Domain.Entities.Orders;
 using Recore.Domain.Entities.Products;
 using Recore.Domain.Entities.Users;
 using Recore.Domain.Entities.WareHouses;
@@ -10,6 +11,7 @@ using Recore.Service.DTOs.Attachments;
 using Recore.Service.DTOs.BonusSetting;
 using Recore.Service.DTOs.Countries;
 using Recore.Service.DTOs.Districts;
+using Recore.Service.DTOs.Orders;
 using Recore.Service.DTOs.ProductCategories;
 using Recore.Service.DTOs.Products;
 using Recore.Service.DTOs.Regions;
@@ -67,5 +69,10 @@ public class MappingProfile : Profile
         CreateMap<Address, AddressResultDto>().ReverseMap();
         CreateMap<AddressCreationDto, Address>().ReverseMap();
         CreateMap<AddressUpdateDto, Address>().ReverseMap();
+
+        //OrderGift
+        CreateMap<OrderGift, OrderGiftResultDto>().ReverseMap();
+        CreateMap<OrderGiftCreationDto, OrderGift>().ReverseMap();
+        CreateMap<OrderGiftUpdateDto, OrderGift>().ReverseMap();
     }
 }
