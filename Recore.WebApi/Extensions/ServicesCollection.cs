@@ -6,7 +6,6 @@ using Recore.Data.Repositories;
 using Recore.Service.Interfaces;
 using Recore.Service.Mappers;
 using Recore.Service.Services;
-using System.Collections;
 using System.Text;
 
 namespace Recore.WebApi.Extensions;
@@ -16,17 +15,18 @@ public static class ServicesCollection
     public static void AddServices(this IServiceCollection services)
     {
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IRegionService, RegionService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IDistrictService, DistrictService>();
-        services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IProductService, ProductService>();
-        services.AddScoped<IEmailService, EmailService>();
-        services.AddScoped<IAttachmentService, AttachmentService>();
-        services.AddScoped<IProductCategoryService, ProductCategoryService>();
         services.AddScoped<IAddressService, AddressService>();
+		services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IProductCategoryService, ProductCategoryService>();
         services.AddScoped<IBonusSettingService, BonusSettingService>();
+        services.AddScoped<IAttachmentService, AttachmentService>();
         services.AddAutoMapper(typeof(MappingProfile));
     }
 

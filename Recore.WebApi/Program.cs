@@ -1,18 +1,10 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using Recore.Data.Contexts;
-using Recore.Data.IRepositories;
-using Recore.Data.Repositories;
 using Recore.Service.Helpers;
-using Recore.Service.Interfaces;
-using Recore.Service.Mappers;
-using Recore.Service.Services;
 using Recore.WebApi.Extensions;
 using Recore.WebApi.Middlewares;
-using Serilog;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 var builder = WebApplication.CreateBuilder(args);
 

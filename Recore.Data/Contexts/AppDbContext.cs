@@ -6,7 +6,6 @@ using Recore.Domain.Entities.Orders;
 using Recore.Domain.Entities.Products;
 using Recore.Domain.Entities.Suppliers;
 using Recore.Domain.Entities.Users;
-using Recore.Domain.Enums;
 
 namespace Recore.Data.Contexts;
 
@@ -35,8 +34,6 @@ public class AppDbContext : DbContext
         #region Fluent API
         modelBuilder.Entity<User>()
             .Property<DateTime>("LastUpdated");
-
-
 
         #endregion
 
