@@ -2,11 +2,11 @@
 using Recore.Domain.Entities.Addresses;
 using Recore.Domain.Entities.Attachments;
 using Recore.Domain.Entities.Bonuses;
+using Recore.Domain.Entities.Inventories;
 using Recore.Domain.Entities.Orders;
 using Recore.Domain.Entities.Products;
 using Recore.Domain.Entities.Suppliers;
 using Recore.Domain.Entities.Users;
-using Recore.Domain.Enums;
 
 namespace Recore.Data.Contexts;
 
@@ -30,14 +30,14 @@ public class AppDbContext : DbContext
     public DbSet<Attachment> Attachments { get; set; }
     public DbSet<Bonus> Bonuses { get; set; }
     public DbSet<BonusSetting> BonusSettings { get; set; }
+    public DbSet<Inventory> Inventories { get; set; }
+    public DbSet<InventoryLog> InventoryLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         #region Fluent API
         modelBuilder.Entity<User>()
             .Property<DateTime>("LastUpdated");
-
-
 
         #endregion
 

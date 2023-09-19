@@ -79,7 +79,7 @@ public class UsersController : BaseController
 		});
 
     [HttpPost("SendEmail")]
-    private async ValueTask<IActionResult> SendEmailAsync(string email)
+    public async ValueTask<IActionResult> SendEmailAsync(string email)
     {
         MailRequest mailRequest = new MailRequest();
         mailRequest.ToEmail = email;

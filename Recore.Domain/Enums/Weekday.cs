@@ -2,11 +2,12 @@
 
 public enum Weekday
 {
-    Monday = 1,
+    Sunday,
+    Monday,
     Tuesday,
     Wednesday,
     Thursday,
     Friday,
     Saturday,
-    Sunday
+    Null = -1
 }

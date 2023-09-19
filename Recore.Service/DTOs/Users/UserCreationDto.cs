@@ -1,4 +1,5 @@
 ﻿using Recore.Domain.Enums;
+using Recore.Service.Helpers;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,13 +13,13 @@ public class UserCreationDto
     [DisplayName("Lastname")]
     public string LastName { get; set; }
 
-    [DisplayName("Email")]
+    [DisplayName("Email"), CheckEmail]
     public string Email { get; set; }
     
     [DisplayName("Password")]
     public string Password { get; set; }
 
-    [DisplayName("Phone")]
+    [DisplayName("Phone"), CheckPhone]
     public string Phone { get; set; }
 
     [DisplayName("Date of birth")]

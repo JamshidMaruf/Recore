@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Recore.Data.IRepositories;
 using Recore.Domain.Configurations;
 using Recore.Domain.Entities.Orders;
 using Recore.Service.DTOs.Orders;
+using Recore.Service.Exceptions;
+using Recore.Service.Extensions;
 using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
@@ -21,27 +24,48 @@ public class OrderService : IOrderService
     {
         var mappedOrder = this.mapper.Map<Order>(dto);
         await this.repository.CreateAsync(mappedOrder);
+        await this.repository.SaveAsync();
 
-        throw new NotImplementedException();
+        return this.mapper.Map<OrderResultDto>(mappedOrder);
     }
 
-    public ValueTask<OrderResultDto> ModifyAsync(OrderUpdateDto dto)
+    public async ValueTask<OrderResultDto> ModifyAsync(OrderUpdateDto dto)
     {
-        throw new NotImplementedException();
+        Order order = await this.repository.SelectAsync(u => u.Id.Equals(dto.Id))
+            ?? throw new NotFoundException($"This Order is not found with ID = {dto.Id}");
+
+        this.mapper.Map(dto, order);
+        this.repository.Update(order);
+        await this.repository.SaveAsync();
+
+        return this.mapper.Map<OrderResultDto>(order);
     }
 
-    public ValueTask<bool> RemoveAsync(long id)
+    public async ValueTask<bool> RemoveAsync(long id)
     {
-        throw new NotImplementedException();
+        Order order = await this.repository.SelectAsync(u => u.Id.Equals(id))
+            ?? throw new NotFoundException($"This Order is not found with ID = {id}");
+
+        this.repository.Delete(order);
+        await this.repository.SaveAsync();
+        return true;
     }
 
-    public ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync(PaginationParams @params, Filter filter, string search = null)
+    public async ValueTask<OrderResultDto> RetrieveByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        Order order = await this.repository.SelectAsync(u => u.Id.Equals(id))
+            ?? throw new NotFoundException($"This Order is not found with ID = {id}");
+
+        return this.mapper.Map<OrderResultDto>(order);
     }
 
-    public ValueTask<OrderResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        throw new NotImplementedException();
+        var orders = await this.repository.SelectAll()
+            .ToPaginate(@params)
+            .ToListAsync();
+
+        var mappedOrders = this.mapper.Map<List<OrderResultDto>>(orders);
+        return mappedOrders;
     }
 }
