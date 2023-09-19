@@ -14,6 +14,7 @@ public static class ServicesCollection
 {
     public static void AddServices(this IServiceCollection services)
     {
+        services.AddAutoMapper(typeof(MappingProfile));
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
@@ -22,11 +23,15 @@ public static class ServicesCollection
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IDistrictService, DistrictService>();
         services.AddScoped<IAddressService, AddressService>();
-		services.AddScoped<IOrderService, OrderService>();
+		    services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IProductCategoryService, ProductCategoryService>();
         services.AddScoped<IBonusSettingService, BonusSettingService>();
         services.AddScoped<IAttachmentService, AttachmentService>();
+		    services.AddScoped<IVehicleService, VehicleService>();
+		    services.AddScoped<ISupplierService, SupplierService>();
+		    services.AddScoped<IWareHouseService, WareHouseService>();
+		    services.AddScoped<IInventoryService, InventoryService>();
         services.AddAutoMapper(typeof(MappingProfile));
     }
 

@@ -44,7 +44,7 @@ public class BonusSetting : Auditable
     /// Number of order that If customer order in some time
     /// </summary>
     public int OrderQuantity { get; set; }
-
+    
     /// <summary>
     /// Start time for giving bonus
     /// </summary>
@@ -58,5 +58,8 @@ public class BonusSetting : Auditable
     /// <summary>
     /// Weekdays
     /// </summary>
-    public Weekday Weekday { get; set; }
+    public Weekday Weekday { get; set; } = Weekday.Null;
+    public long? ProductId { get; set; }
+    public bool IsWeekDay { get; set; }
+    public bool IsDate { get; set; }
 }

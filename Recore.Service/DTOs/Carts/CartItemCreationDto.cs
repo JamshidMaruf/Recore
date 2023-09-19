@@ -5,5 +5,5 @@ namespace Recore.Service.DTOs.Carts;
 
 public class CartItemCreationDto
 {
-	public List<CartItemDetail> Details { get; set; } = new();
+	public ICollection<CartItemDetail> Details { get; set; }
 }

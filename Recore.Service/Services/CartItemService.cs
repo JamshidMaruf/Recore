@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Recore.Service.Helpers;
 using Recore.Data.IRepositories;
 using Recore.Service.Interfaces;
-using Recore.Domain.Entities.Carts;
 using Recore.Service.DTOs.Carts;
+using Recore.Service.Exceptions;
+using Recore.Domain.Entities.Carts;
 using Recore.Domain.Configurations;
-using Microsoft.AspNetCore.Http;
-using Recore.Service.Helpers;
 
 namespace Recore.Service.Services;
 
@@ -21,58 +21,31 @@ public class CartItemService : ICartItemService
 		this.cartRepository = cartRepository;
 	}
 
-	public async ValueTask<CartItemResultDto> AddAsync(CartItemCreationDto dto)
+	public async ValueTask<IEnumerable<CartItemResultDto>> AddAsync(CartItemCreationDto dto)
 	{
-		var mappedCartItem = this.mapper.Map<CartItem>(dto);
+		if (HttpContextHelper.GetUserId != 0)
+			throw new CustomException(401, "This user is not authorized");
 
-		// TODO: Get last price from warehouse
+		var cart = await this.cartRepository.SelectAsync(cart => cart.UserId.Equals(HttpContextHelper.GetUserId));
 
-		if(HttpContextHelper.GetUserId != 0)
-		{
-			var existCart = await this.cartRepository
-				.SelectAsync(cart => cart.UserId == HttpContextHelper.GetUserId);
-
-			if (existCart is null)
-			{
-				existCart = new Cart
-				{
-					UserId = HttpContextHelper.GetUserId,
-				};
-				await this.cartRepository.CreateAsync(existCart);
-				await this.cartRepository.SaveAsync();
-			}
-
-            foreach (var item in dto.Details)
-            {
-				var cartItem = new CartItem
-				{
-					Price = item.Price,
-					CartId = existCart.Id,
-					Quantity = item.Quantity,
-					ProductId = item.ProductId,
-				};
-				await this.cartItemRepository.CreateAsync(cartItem);
-            }
-			await this.cartItemRepository.SaveAsync();
-		}
-
-		var cart = new Cart();
-		await this.cartRepository.CreateAsync(cart);
+		var result = new List<CartItemResultDto>();
 		foreach (var item in dto.Details)
 		{
 			var cartItem = new CartItem
 			{
-				Price = item.Price,
 				CartId = cart.Id,
-				Quantity = item.Quantity,
+				Price = item.Price,
 				ProductId = item.ProductId,
+				Quantity = item.Quantity,
+				Summ = (decimal)item.Quantity * item.Price
 			};
 			await this.cartItemRepository.CreateAsync(cartItem);
-		}
+			result.Add(this.mapper.Map<CartItemResultDto>(cartItem));
+        }
 		await this.cartItemRepository.SaveAsync();
 
-		throw new NotImplementedException();
-	}
+		return result;
+    }
 
 	public ValueTask<CartItemResultDto> ModifyAsync(CartItemUpdateDto dto)
 	{
@@ -89,13 +62,24 @@ public class CartItemService : ICartItemService
 		throw new NotImplementedException();
 	}
 
-	public ValueTask<IEnumerable<CartItemResultDto>> RetrieveAllAsync(Filter filter, long cartId)
+	public IEnumerable<CartItemResultDto> RetrieveAll(Filter filter = null, long? cartId = null)
 	{
-		throw new NotImplementedException();
+		var carts = this.cartItemRepository.SelectAll(includes: new[] { "Product" });
+
+		if(cartId is not null)
+			carts = carts.Where(cartItem => cartItem.CartId.Equals(cartId));
+
+		return this.mapper.Map<IEnumerable<CartItemResultDto>>(carts);
 	}
 
-	public ValueTask<CartItemResultDto> RetrieveByIdAsync(long id)
+	public async ValueTask<CartItemResultDto> RetrieveByIdAsync(long id)
 	{
-		throw new NotImplementedException();
+		var cartItem = 
+			await this.cartItemRepository.SelectAsync(cartItem => cartItem.Id.Equals(id), includes: new[] { "Product" });
+		
+		if(cartItem is null)
+			throw new NotFoundException("This cart item is not found");
+
+		return this.mapper.Map<CartItemResultDto>(cartItem);
 	}
 }
