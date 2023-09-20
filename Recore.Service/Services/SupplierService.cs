@@ -12,15 +12,20 @@ public class SupplierService : ISupplierService
 {
     private readonly IMapper mapper;
     private readonly IRepository<Supplier> repository;
+    private readonly IRepository<Vehicle> vehicleRepository;
 
-    public SupplierService(IRepository<Supplier> repository, IMapper mapper)
+    public SupplierService(IRepository<Supplier> repository, IMapper mapper, IRepository<Vehicle> vehicleRepository)
     {
         this.repository = repository;
         this.mapper = mapper;
+        this.vehicleRepository = vehicleRepository;
     }
 
     public async ValueTask<SupplierResultDto> AddAsync(SupplierCreationDto dto)
     {
+        var existVehicle = await this.vehicleRepository.SelectAsync(vehicle => vehicle.Id.Equals(dto.VehicleId))
+            ?? throw new NotFoundException($"This vehicleId is not found with Id = {dto.VehicleId}");
+
         var supplier = await this.repository.SelectAsync(c => c.Phone.Equals(dto.Phone));
         if (supplier is not null)
             throw new AlreadyExistException("This supplier is already exists");
@@ -36,6 +41,9 @@ public class SupplierService : ISupplierService
     {
         var existSupplier = await this.repository.SelectAsync(u => u.Id.Equals(dto.Id))
             ?? throw new NotFoundException($"This supplier is not found with ID = {dto.Id}");
+
+        var existVehicle = await this.vehicleRepository.SelectAsync(vehicle => vehicle.Id.Equals(dto.VehicleId))
+            ?? throw new NotFoundException($"This vehicleId is not found with Id = {dto.VehicleId}");
 
         this.mapper.Map(dto, existSupplier);
         this.repository.Update(existSupplier);
