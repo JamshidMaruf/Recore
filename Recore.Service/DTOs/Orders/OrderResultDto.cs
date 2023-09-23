@@ -1,7 +1,7 @@
 ﻿using Recore.Domain.Enums;
+using Recore.Service.DTOs.Users;
 using Recore.Service.DTOs.Addresses;
 using Recore.Service.DTOs.Suppliers;
-using Recore.Service.DTOs.Users;
 
 namespace Recore.Service.DTOs.Orders;
 

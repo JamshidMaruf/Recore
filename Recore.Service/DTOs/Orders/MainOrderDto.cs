@@ -1,10 +1,5 @@
-﻿using Recore.Domain.Entities.Payments;
-using Recore.Service.DTOs.Addresses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Recore.Service.DTOs.Addresses;
+using Recore.Domain.Entities.Payments;
 
 namespace Recore.Service.DTOs.Orders
 {

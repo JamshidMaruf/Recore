@@ -1,7 +1,5 @@
-﻿using Recore.Domain.Enums;
+﻿using System.ComponentModel;
 using Recore.Service.Helpers;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Recore.Service.DTOs.Users;
 

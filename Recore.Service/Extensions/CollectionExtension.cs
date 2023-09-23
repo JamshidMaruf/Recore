@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Recore.Domain.Commons;
+using Recore.Service.Helpers;
+using Recore.Service.Exceptions;
 using Recore.Domain.Configurations;
 using Recore.Domain.Configurations.Pagination;
-using Recore.Service.Exceptions;
-using Recore.Service.Helpers;
 
 namespace Recore.Service.Extensions;
 

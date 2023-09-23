@@ -1,6 +1,5 @@
 ﻿using Recore.Domain.Configurations;
 using Recore.Service.DTOs.Districts;
-using Recore.Service.DTOs.Users;
 
 namespace Recore.Service.Interfaces;
 

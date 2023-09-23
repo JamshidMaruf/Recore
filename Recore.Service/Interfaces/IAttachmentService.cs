@@ -1,5 +1,5 @@
-﻿using Recore.Domain.Entities.Attachments;
-using Recore.Service.DTOs.Attachments;
+﻿using Recore.Service.DTOs.Attachments;
+using Recore.Domain.Entities.Attachments;
 
 namespace Recore.Service.Interfaces;
 

@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Recore.Data.IRepositories;
-using Recore.Data.Repositories;
-using Recore.Service.Interfaces;
+﻿using System.Text;
 using Recore.Service.Mappers;
 using Recore.Service.Services;
-using System.Collections;
-using System.Text;
+using Recore.Data.Repositories;
+using Recore.Service.Interfaces;
+using Recore.Data.IRepositories;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Recore.Web.Extensions;
 

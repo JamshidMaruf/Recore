@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Recore.Service.Helpers;
 using Recore.Data.IRepositories;
-using Recore.Domain.Configurations;
-using Recore.Domain.Entities.Addresses;
-using Recore.Service.DTOs.Countries;
-using Recore.Service.DTOs.Districts;
-using Recore.Service.DTOs.Users;
 using Recore.Service.Exceptions;
 using Recore.Service.Extensions;
-using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
+using Recore.Domain.Configurations;
+using Microsoft.EntityFrameworkCore;
+using Recore.Service.DTOs.Districts;
+using Recore.Domain.Entities.Addresses;
 
 namespace Recore.Service.Services;
 

@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using Recore.Data.IRepositories;
-using Recore.Data.Repositories;
-using Recore.Service.Interfaces;
+﻿using System.Text;
 using Recore.Service.Mappers;
 using Recore.Service.Services;
-using System.Text;
+using Microsoft.OpenApi.Models;
+using Recore.Data.Repositories;
+using Recore.Data.IRepositories;
+using Recore.Service.Interfaces;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Recore.WebApi.Extensions;
 
@@ -19,21 +19,21 @@ public static class ServicesCollection
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IRegionService, RegionService>();
-		    services.AddScoped<IPaymentService, PaymentService>();
-		    services.AddScoped<IVehicleService, VehicleService>();
+		services.AddScoped<IPaymentService, PaymentService>();
+		services.AddScoped<IVehicleService, VehicleService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<IDistrictService, DistrictService>();
-		    services.AddScoped<IWareHouseService, WareHouseService>();
+		services.AddScoped<IWareHouseService, WareHouseService>();
         services.AddScoped<IAttachmentService, AttachmentService>();
         services.AddScoped<IBonusSettingService, BonusSettingService>();
         services.AddScoped<IOrderGiftService, OrderGiftService>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IProductCategoryService, ProductCategoryService>();
-		    services.AddScoped<IOrderService, OrderService>();
-		    services.AddScoped<ISupplierService, SupplierService>();
-		    services.AddScoped<IInventoryService, InventoryService>();
+		services.AddScoped<IOrderService, OrderService>();
+		services.AddScoped<ISupplierService, SupplierService>();
+		services.AddScoped<IInventoryService, InventoryService>();
     }
 
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)

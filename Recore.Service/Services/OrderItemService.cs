@@ -1,6 +1,5 @@
-﻿using Recore.Domain.Configurations;
+﻿using Recore.Service.Interfaces;
 using Recore.Service.DTOs.Orders;
-using Recore.Service.Interfaces;
 
 namespace Recore.Service.Services;
 

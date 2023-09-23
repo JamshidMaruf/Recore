@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Recore.Data.Contexts;
-using Recore.Data.IRepositories;
+﻿using Recore.Data.Contexts;
 using Recore.Domain.Commons;
 using System.Linq.Expressions;
+using Recore.Data.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Recore.Data.Repositories;
 

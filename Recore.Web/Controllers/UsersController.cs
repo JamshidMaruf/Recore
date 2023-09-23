@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Recore.Domain.Entities.Users;
 using Recore.Service.DTOs.Users;
 using Recore.Service.Interfaces;
+using Recore.Domain.Entities.Users;
 
 namespace Recore.Web.Controllers;
 

@@ -1,6 +1,6 @@
-﻿using Recore.Domain.Configurations;
-using Recore.Domain.Enums;
+﻿using Recore.Domain.Enums;
 using Recore.Service.DTOs.Users;
+using Recore.Domain.Configurations;
 
 namespace Recore.Service.Interfaces;
 

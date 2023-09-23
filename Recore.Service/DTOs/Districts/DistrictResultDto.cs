@@ -1,5 +1,4 @@
-﻿using Recore.Domain.Entities.Addresses;
-using Recore.Service.DTOs.Regions;
+﻿using Recore.Service.DTOs.Regions;
 
 namespace Recore.Service.DTOs.Districts;
 

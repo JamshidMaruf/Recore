@@ -5,10 +5,10 @@ using Recore.Service.Extensions;
 using Recore.Service.Interfaces;
 using Recore.Domain.Configurations;
 using Recore.Service.DTOs.Products;
+using Recore.Domain.Entities.Orders;
 using Microsoft.EntityFrameworkCore;
 using Recore.Domain.Entities.Products;
 using Recore.Service.DTOs.Attachments;
-using Recore.Domain.Entities.Orders;
 
 namespace Recore.Service.Services;
 

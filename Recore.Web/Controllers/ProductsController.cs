@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Recore.Domain.Entities.Products;
+﻿using Recore.Web.Models;
+using Microsoft.AspNetCore.Mvc;
 using Recore.Service.Interfaces;
-using Recore.Web.Models;
 
 namespace Recore.Web.Controllers;
 

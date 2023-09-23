@@ -1,6 +1,6 @@
 ﻿using Recore.Domain.Configurations;
-using Recore.Service.DTOs.Attachments;
 using Recore.Service.DTOs.Products;
+using Recore.Service.DTOs.Attachments;
 
 namespace Recore.Service.Interfaces;
 

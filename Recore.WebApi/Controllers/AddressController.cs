@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Recore.WebApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using Recore.Service.Interfaces;
 using Recore.Domain.Configurations;
 using Recore.Service.DTOs.Addresses;
-using Recore.Service.Interfaces;
-using Recore.WebApi.Models;
 
 namespace Recore.WebApi.Controllers;
 

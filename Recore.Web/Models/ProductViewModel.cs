@@ -1,5 +1,5 @@
-﻿using Recore.Service.DTOs.ProductCategories;
-using Recore.Service.DTOs.Products;
+﻿using Recore.Service.DTOs.Products;
+using Recore.Service.DTOs.ProductCategories;
 
 namespace Recore.Web.Models;
 

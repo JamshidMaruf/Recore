@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Recore.Domain.Configurations;
-using Recore.WebApi.Models;
+﻿using Recore.WebApi.Models;
+using Microsoft.AspNetCore.Mvc;
 using Recore.Service.Interfaces;
+using Recore.Domain.Configurations;
 using Recore.Service.DTOs.Payments;
 
 namespace Recore.WebApi.Controllers;
