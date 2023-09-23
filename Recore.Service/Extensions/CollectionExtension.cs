@@ -1,7 +1,7 @@
-﻿using MailKit.Search;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Recore.Domain.Commons;
 using Recore.Domain.Configurations;
+using Recore.Domain.Configurations.Pagination;
 using Recore.Service.Exceptions;
 using Recore.Service.Helpers;
 
@@ -15,7 +15,7 @@ public static class CollectionExtension
 		return source;
 	}
 
-    public static IQueryable<TEntity> ToPagedList<TEntity>(this IQueryable<TEntity> entities, PaginationParams @params)
+    public static IEnumerable<TEntity> ToPagedList<TEntity>(this IQueryable<TEntity> entities, PaginationParams @params)
         where TEntity : Auditable
     {
         if (@params.PageSize == 0 && @params.PageIndex == 0)
@@ -49,8 +49,9 @@ public static class CollectionExtension
         if(filter is null)
             return collect;
 
-        var property = typeof(TEntity).GetProperties()
-            .FirstOrDefault(n => n.Name.Equals(filter.OrderBy));
+        var property = typeof(TEntity).GetProperties().FirstOrDefault(n 
+            => n.Name.ToLower().Equals(filter.OrderBy.ToLower())
+            );
 
         if(property is null)
             return collect;
