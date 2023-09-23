@@ -10,7 +10,6 @@ using Recore.Domain.Configurations;
 using Recore.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Recore.Domain.Entities.Carts;
-using Recore.Domain.Entities.Bonuses;
 
 namespace Recore.Service.Services;
 
@@ -77,10 +76,11 @@ public class UserService : IUserService
         return result;
     }
 
-    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params, string search = null)
+    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params, Filter filter, string search = null)
     {
         var users = await this.userRepository.SelectAll()
             .ToPaginate(@params)
+            .OrderBy(filter)
             .ToListAsync();
 
         var result = users.Where(user => user.FirstName.Contains(search, StringComparison.OrdinalIgnoreCase));

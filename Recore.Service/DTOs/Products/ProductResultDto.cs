@@ -1,5 +1,4 @@
-﻿using Recore.Data.Migrations;
-using Recore.Domain.Enums;
+﻿using Recore.Domain.Enums;
 using Recore.Service.DTOs.Attachments;
 using Recore.Service.DTOs.ProductCategories;
 

@@ -1,4 +1,4 @@
-﻿using Recore.Domain.Configurations;
+﻿namespace Recore.Domain.Configurations.Pagination;
 
 public class PaginationMetaData
 {

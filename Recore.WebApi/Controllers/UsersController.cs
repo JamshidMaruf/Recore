@@ -60,12 +60,12 @@ public class UsersController : BaseController
 
 
     [HttpGet("get-all")]
-    public async ValueTask<IActionResult> GetAllAsync([FromQuery] PaginationParams @params,[FromQuery]string search)
+    public async ValueTask<IActionResult> GetAllAsync([FromQuery] PaginationParams @params, [FromQuery]Filter filter, [FromQuery]string search)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.userService.RetrieveAllAsync(@params,search)
+            Data = await this.userService.RetrieveAllAsync(@params, filter, search)
         });
 
 
@@ -81,7 +81,7 @@ public class UsersController : BaseController
     [HttpPost("SendEmail")]
     public async ValueTask<IActionResult> SendEmailAsync(string email)
     {
-        MailRequest mailRequest = new MailRequest();
+        var mailRequest = new MailRequest();
         mailRequest.ToEmail = email;
         mailRequest.Subject = $"Welcome To Recore {email}";
         mailRequest.Body = "Thanks for subscribing us";
