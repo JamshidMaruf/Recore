@@ -1,10 +1,9 @@
-﻿using MailKit.Net.Smtp;
+﻿using MimeKit;
+using MailKit.Net.Smtp;
 using MailKit.Security;
-using Microsoft.Extensions.Options;
-using MimeKit;
-using Recore.Data.IRepositories;
 using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace Recore.Service.Services;
 

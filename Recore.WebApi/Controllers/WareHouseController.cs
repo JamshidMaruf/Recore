@@ -70,7 +70,7 @@ namespace Recore.WebApi.Controllers
 			{
 				StatusCode = 200,
 				Message = "Success",
-				Data = await this.wareHouseService.RetrieveAllAsync(@params)
+				Data = await this.wareHouseService.RetrieveAllAsync()
 
 			});
 	}

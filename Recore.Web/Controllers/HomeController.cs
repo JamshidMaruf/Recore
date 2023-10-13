@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Recore.Web.Models;
+﻿using Recore.Web.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Recore.Web.Controllers
 {

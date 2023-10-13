@@ -1,5 +1,5 @@
-﻿using Recore.Domain.Commons;
-using Recore.Domain.Enums;
+﻿using Recore.Domain.Enums;
+using Recore.Domain.Commons;
 
 namespace Recore.Domain.Entities.Settings;
 

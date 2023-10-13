@@ -1,5 +1,4 @@
-﻿using Recore.Service.DTOs.Addresses;
-using Recore.Service.DTOs.Carts;
+﻿using Recore.Service.DTOs.Carts;
 
 namespace Recore.Service.Interfaces;
 

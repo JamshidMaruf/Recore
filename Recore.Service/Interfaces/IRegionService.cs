@@ -1,5 +1,5 @@
-﻿using Recore.Domain.Configurations;
-using Recore.Service.DTOs.Regions;
+﻿using Recore.Service.DTOs.Regions;
+using Recore.Domain.Configurations;
 
 namespace Recore.Service.Interfaces;
 

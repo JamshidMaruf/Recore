@@ -1,17 +1,14 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Recore.Data.IRepositories;
-using Recore.Domain.Entities.Bonuses;
-using Recore.Domain.Entities.Carts;
-using Recore.Domain.Entities.Orders;
-using Recore.Domain.Entities.Settings;
-using Recore.Domain.Entities.WareHouses;
 using Recore.Domain.Enums;
-using Recore.Service.DTOs.Addresses;
-using Recore.Service.DTOs.Orders;
 using Recore.Service.Helpers;
 using Recore.Service.Interfaces;
+using Recore.Data.IRepositories;
+using Recore.Service.DTOs.Orders;
+using Microsoft.EntityFrameworkCore;
+using Recore.Domain.Entities.Orders;
+using Recore.Domain.Entities.Bonuses;
+using Recore.Domain.Entities.Settings;
+using Recore.Domain.Entities.WareHouses;
 
 namespace Recore.Service.Services;
 

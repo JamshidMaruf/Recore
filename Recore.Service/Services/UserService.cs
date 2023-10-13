@@ -8,8 +8,8 @@ using Recore.Service.Interfaces;
 using Recore.Data.IRepositories;
 using Recore.Domain.Configurations;
 using Recore.Domain.Entities.Users;
-using Microsoft.EntityFrameworkCore;
 using Recore.Domain.Entities.Carts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Recore.Service.Services;
 

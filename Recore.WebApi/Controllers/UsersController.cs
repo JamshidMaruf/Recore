@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Recore.Domain.Configurations;
-using Recore.Domain.Enums;
-using Recore.Service.DTOs.Users;
-using Recore.Service.Helpers;
-using Recore.Service.Interfaces;
+﻿using Recore.Domain.Enums;
 using Recore.WebApi.Models;
+using Recore.Service.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using Recore.Service.DTOs.Users;
+using Recore.Service.Interfaces;
+using Recore.Domain.Configurations;
+
 
 namespace Recore.WebApi.Controllers;
 

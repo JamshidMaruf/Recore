@@ -1,9 +1,6 @@
-﻿
-
-using Recore.Service.Exceptions;
-using System.ComponentModel.DataAnnotations;
-using System.Net.Mail;
+﻿using Recore.Service.Exceptions;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Recore.Service.Helpers;
 

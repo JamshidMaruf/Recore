@@ -1,5 +1,5 @@
-﻿using Recore.Service.Exceptions;
-using Recore.WebApi.Models;
+﻿using Recore.WebApi.Models;
+using Recore.Service.Exceptions;
 
 namespace Recore.WebApi.Middlewares;
 

@@ -1,9 +1,9 @@
-﻿using Recore.Domain.Commons;
-using Recore.Domain.Entities.Addresses;
-using Recore.Domain.Entities.Payments;
-using Recore.Domain.Entities.Suppliers;
+﻿using Recore.Domain.Enums;
+using Recore.Domain.Commons;
 using Recore.Domain.Entities.Users;
-using Recore.Domain.Enums;
+using Recore.Domain.Entities.Payments;
+using Recore.Domain.Entities.Addresses;
+using Recore.Domain.Entities.Suppliers;
 
 namespace Recore.Domain.Entities.Orders;
 

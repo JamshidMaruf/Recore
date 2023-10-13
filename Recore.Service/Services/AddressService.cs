@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Recore.Data.IRepositories;
-using Recore.Domain.Configurations;
-using Recore.Domain.Entities.Addresses;
-using Recore.Service.DTOs.Addresses;
 using Recore.Service.Exceptions;
 using Recore.Service.Extensions;
 using Recore.Service.Interfaces;
+using Recore.Domain.Configurations;
+using Microsoft.EntityFrameworkCore;
+using Recore.Service.DTOs.Addresses;
+using Recore.Domain.Entities.Addresses;
 
 namespace Recore.Service.Services;
 

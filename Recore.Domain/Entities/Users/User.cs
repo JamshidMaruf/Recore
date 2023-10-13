@@ -1,6 +1,5 @@
-﻿using Recore.Domain.Commons;
-using Recore.Domain.Enums;
-
+﻿using Recore.Domain.Enums;
+using Recore.Domain.Commons;
 namespace Recore.Domain.Entities.Users;
 
 public class User : Auditable

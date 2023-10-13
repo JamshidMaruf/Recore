@@ -4,7 +4,6 @@ using Recore.Service.Extensions;
 using Recore.Service.Interfaces;
 using Recore.Service.DTOs.Attachments;
 using Recore.Domain.Entities.Attachments;
-using Recore.Service.Exceptions;
 
 namespace Recore.Service.Services;
 
