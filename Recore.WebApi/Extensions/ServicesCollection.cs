@@ -25,7 +25,7 @@ public static class ServicesCollection
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<IDistrictService, DistrictService>();
-		services.AddScoped<IWareHouseService, WareHouseService>();
+		services.AddScoped<IWarehouseService, WarehouseService>();
         services.AddScoped<IAttachmentService, AttachmentService>();
         services.AddScoped<IBonusSettingService, BonusSettingService>();
         services.AddScoped<IOrderGiftService, OrderGiftService>();

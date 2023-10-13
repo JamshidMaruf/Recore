@@ -8,5 +8,6 @@ public interface IInventoryService
     ValueTask<InventoryResultDto> ModifyAsync(InventoryUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<InventoryResultDto> RetrieveByIdAsync(long id);
+    ValueTask<InventoryResultDto> RetrieveStockAsync(long productId);
     ValueTask<IEnumerable<InventoryResultDto>> RetrieveAllAsync();
 }

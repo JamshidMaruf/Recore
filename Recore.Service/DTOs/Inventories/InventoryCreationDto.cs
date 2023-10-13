@@ -2,7 +2,8 @@
 
 public class InventoryCreationDto
 {
-    public double Price { get; set; }
+    public decimal Price { get; set; }
     public long Quantity { get; set; }
     public long ProductId { get; set; }
+    public long WarehouseId { get; set; }
 }

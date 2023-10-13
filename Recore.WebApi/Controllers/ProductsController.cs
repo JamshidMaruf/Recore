@@ -56,12 +56,14 @@ public class ProductsController : BaseController
 
 
     [HttpGet("get-all")]
-    public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
+    public async Task<IActionResult> GetAllAsync(
+        [FromQuery] PaginationParams @params,
+        [FromQuery] Filter filter)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.productService.RetrieveAllAsync(@params)
+            Data = await this.productService.RetrieveAllAsync(@params, filter)
         });
 
 
@@ -82,15 +84,5 @@ public class ProductsController : BaseController
             StatusCode = 200,
             Message = "Success",
             Data = await this.productService.ModifyImageAsync(productId, dto)
-        });
-
-
-    [HttpPatch("increase-quantity{productId:long}")]
-    public async Task<IActionResult> IncreaseQuantityAsync(long productId, double quantity)
-        => Ok(new Response
-        {
-            StatusCode = 200,
-            Message = "Success",
-            Data = await this.productService.IncreaseQuantityAsync(productId, quantity)
         });
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Recore.Data.Contexts;
@@ -11,9 +12,10 @@ using Recore.Data.Contexts;
 namespace Recore.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231013172209_Added Column for product")]
+    partial class AddedColumnforproduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -324,26 +326,21 @@ namespace Recore.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
 
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("Quantity")
-                        .HasColumnType("double precision");
+                    b.Property<long>("Quantity")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("WarehouseId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("WarehouseId");
 
                     b.ToTable("Inventories");
                 });
@@ -383,7 +380,7 @@ namespace Recore.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("WarehouseId")
+                    b.Property<long>("WareHouseId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -392,7 +389,7 @@ namespace Recore.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("WarehouseId");
+                    b.HasIndex("WareHouseId");
 
                     b.ToTable("InventoryLogs");
                 });
@@ -635,70 +632,70 @@ namespace Recore.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(136),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(71),
                             IsDeleted = false,
                             Name = "Burgers"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(138),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(73),
                             IsDeleted = false,
                             Name = "Lavashes"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(139),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(74),
                             IsDeleted = false,
                             Name = "Hot-Dogs"
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(140),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(75),
                             IsDeleted = false,
                             Name = "Sendviches"
                         },
                         new
                         {
                             Id = 5L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(141),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(75),
                             IsDeleted = false,
                             Name = "Salats"
                         },
                         new
                         {
                             Id = 6L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(141),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(76),
                             IsDeleted = false,
                             Name = "Snacks"
                         },
                         new
                         {
                             Id = 7L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(142),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(77),
                             IsDeleted = false,
                             Name = "Pizzas"
                         },
                         new
                         {
                             Id = 8L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(143),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(78),
                             IsDeleted = false,
                             Name = "Hot drinks"
                         },
                         new
                         {
                             Id = 9L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(144),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(78),
                             IsDeleted = false,
                             Name = "Cold drinks"
                         },
                         new
                         {
                             Id = 10L,
-                            CreatedAt = new DateTime(2023, 10, 13, 18, 37, 48, 989, DateTimeKind.Utc).AddTicks(144),
+                            CreatedAt = new DateTime(2023, 10, 13, 17, 22, 9, 247, DateTimeKind.Utc).AddTicks(79),
                             IsDeleted = false,
                             Name = "Sauces"
                         });
@@ -900,7 +897,7 @@ namespace Recore.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Recore.Domain.Entities.Warehouses.Warehouse", b =>
+            modelBuilder.Entity("Recore.Domain.Entities.WareHouses.WareHouse", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1037,15 +1034,7 @@ namespace Recore.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Recore.Domain.Entities.Warehouses.Warehouse", "Warehouse")
-                        .WithMany()
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Product");
-
-                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("Recore.Domain.Entities.Inventories.InventoryLog", b =>
@@ -1062,9 +1051,9 @@ namespace Recore.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Recore.Domain.Entities.Warehouses.Warehouse", "Warehouse")
+                    b.HasOne("Recore.Domain.Entities.WareHouses.WareHouse", "WareHouse")
                         .WithMany()
-                        .HasForeignKey("WarehouseId")
+                        .HasForeignKey("WareHouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1072,7 +1061,7 @@ namespace Recore.Data.Migrations
 
                     b.Navigation("Product");
 
-                    b.Navigation("Warehouse");
+                    b.Navigation("WareHouse");
                 });
 
             modelBuilder.Entity("Recore.Domain.Entities.Orders.Order", b =>

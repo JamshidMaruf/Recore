@@ -4,12 +4,12 @@ using Recore.Service.DTOs.WareHouses;
 
 namespace Recore.Service.Interfaces;
 
-public interface IWareHouseService
+public interface IWarehouseService
 {
-	ValueTask<WareHouseResultDto> AddAsync(WareHouseCreationDto dto);
-	ValueTask<WareHouseResultDto> ModifyAsync(WareHouseUpdateDto dto);
+	ValueTask<WarehouseResultDto> AddAsync(WareHouseCreationDto dto);
+	ValueTask<WarehouseResultDto> ModifyAsync(WareHouseUpdateDto dto);
 	ValueTask<bool> RemoveAsync(long id);
-	ValueTask<WareHouseResultDto> RetrieveByIdAsync(long id);
-	ValueTask<IEnumerable<WareHouseResultDto>> RetrieveAllAsync(PaginationParams @params, Filter filter, string search = null);
-	ValueTask<IEnumerable<WareHouseResultDto>> RetrieveAllAsync();
+	ValueTask<WarehouseResultDto> RetrieveByIdAsync(long id);
+	ValueTask<IEnumerable<WarehouseResultDto>> RetrieveAllAsync(PaginationParams @params, Filter filter, string search = null);
+	ValueTask<IEnumerable<WarehouseResultDto>> RetrieveAllAsync();
 }

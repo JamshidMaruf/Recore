@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Recore.Domain.Entities.Products;
 using Recore.Service.DTOs.Inventories;
 using Recore.Domain.Entities.Inventories;
+using Recore.Service.DTOs.Products;
 
 namespace Recore.Service.Services;
 
@@ -27,24 +28,49 @@ public class InventoryService : IInventoryService
     public async ValueTask<InventoryResultDto> AddAsync(InventoryCreationDto dto)
     {
         var product = await this.productRepository.SelectAsync(product => product.Id.Equals(dto.ProductId))
-                      ?? throw new NotFoundException("This product is not found");
+            ?? throw new NotFoundException("This product is not found");
 
-        var mappedInventory = this.mapper.Map<Inventory>(dto);
-        mappedInventory.ProductId = product.Id;
-        await this.inventoryRepository.CreateAsync(mappedInventory);
-        await this.inventoryRepository.SaveAsync();
-        mappedInventory.Product = product;
+        var existInventory =
+            await this.inventoryRepository.SelectAsync(inventory => inventory.ProductId.Equals(dto.ProductId));
 
-        return this.mapper.Map<InventoryResultDto>(mappedInventory);
+        if (existInventory is null)
+        {
+            var inventory = new Inventory
+            {
+                ProductId = dto.ProductId,
+                Quantity = dto.Quantity,
+                Price = dto.Price,
+                WarehouseId = dto.WarehouseId,
+            };
+
+            await this.inventoryRepository.CreateAsync(inventory);
+            await this.inventoryRepository.SaveAsync();
+        }
+        else
+        {
+            existInventory.ProductId = dto.ProductId;
+            existInventory.Product = product;
+            existInventory.Quantity += dto.Quantity;
+            existInventory.Price = dto.Price;
+            existInventory.WarehouseId = dto.WarehouseId;
+
+            this.inventoryRepository.Update(existInventory);
+            await this.inventoryRepository.SaveAsync();
+        }
+
+        var result = this.mapper.Map<InventoryResultDto>(existInventory);
+        result.Product = this.mapper.Map<ProductResultDto>(product);
+
+        return result;
     }
 
     public async ValueTask<InventoryResultDto> ModifyAsync(InventoryUpdateDto dto)
     {
         var existInventory = await this.inventoryRepository.SelectAsync(inventory => inventory.Id.Equals(dto.Id))
-                             ?? throw new NotFoundException("This inventory is not found");
+            ?? throw new NotFoundException("This inventory is not found");
 
         var product = await this.productRepository.SelectAsync(product => product.Id.Equals(dto.ProductId))
-                      ?? throw new NotFoundException("This product is not found");
+            ?? throw new NotFoundException("This product is not found");
 
         var mappedInventory = this.mapper.Map(dto, existInventory);
         mappedInventory.ProductId = product.Id;
@@ -59,7 +85,7 @@ public class InventoryService : IInventoryService
     public async ValueTask<bool> RemoveAsync(long id)
     {
         var existInventory = await this.inventoryRepository.SelectAsync(inventory => inventory.Id.Equals(id))
-                             ?? throw new NotFoundException("This inventory is not found");
+            ?? throw new NotFoundException("This inventory is not found");
 
         this.inventoryRepository.Delete(existInventory);
         await this.inventoryRepository.SaveAsync();
@@ -68,8 +94,8 @@ public class InventoryService : IInventoryService
 
     public async ValueTask<InventoryResultDto> RetrieveByIdAsync(long id)
     {
-        var existInventory = 
-            await this.inventoryRepository.SelectAsync(inventory => inventory.Id.Equals(id), includes: new[] { "Product" })
+        var existInventory = await this.inventoryRepository
+            .SelectAsync(inventory => inventory.Id.Equals(id), includes: new[] { "Product" })
             ?? throw new NotFoundException("This inventory is not found");
 
         return this.mapper.Map<InventoryResultDto>(existInventory);
@@ -80,5 +106,14 @@ public class InventoryService : IInventoryService
         var inventories = await this.inventoryRepository.SelectAll(includes: new[] { "Product" }).ToListAsync();
         var result = this.mapper.Map<IEnumerable<InventoryResultDto>>(inventories);
         return result;
+    }
+
+    public async ValueTask<InventoryResultDto> RetrieveStockAsync(long productId)
+    {
+        var existInventory = await this.inventoryRepository
+            .SelectAsync(inventory => inventory.ProductId.Equals(productId), includes: new[] { "Product", "Warehouse" })
+            ?? throw new NotFoundException("This inventory is not found");
+
+        return this.mapper.Map<InventoryResultDto>(existInventory);
     }
 }

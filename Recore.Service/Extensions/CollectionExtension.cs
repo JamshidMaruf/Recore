@@ -4,6 +4,7 @@ using Recore.Service.Helpers;
 using Recore.Service.Exceptions;
 using Recore.Domain.Configurations;
 using Recore.Domain.Configurations.Pagination;
+using System.Linq.Expressions;
 
 namespace Recore.Service.Extensions;
 
@@ -44,21 +45,26 @@ public static class CollectionExtension
                     throw new CustomException(400, "Please, enter valid numbers");
     }
 
-    public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> collect, Filter filter)
+    public static IQueryable<T> OrderBy<T>(this IQueryable<T> source, Filter filter)
     {
-        if(filter is null)
-            return collect;
+        var expression = source.Expression;
 
-        var property = typeof(TEntity).GetProperties().FirstOrDefault(n 
-            => n.Name.ToLower().Equals(filter.OrderBy.ToLower())
-            );
+        var parameter = Expression.Parameter(typeof(T), "x");
+        MemberExpression selector;
+        try
+        {
+            selector = Expression.PropertyOrField(parameter, filter?.OrderBy ?? "Id");
+        }
+        catch
+        {
+            throw new CustomException(400, "Specified property is not found");
+        }
+        var method = string.Equals(filter?.OrderType ?? "asc", "desc", StringComparison.OrdinalIgnoreCase) ? "OrderByDescending" : "OrderBy";
 
-        if(property is null)
-            return collect;
+        expression = Expression.Call(typeof(Queryable), method,
+            new Type[] { source.ElementType, selector.Type },
+            expression, Expression.Quote(Expression.Lambda(selector, parameter)));
 
-        if (filter.IsDesc)
-            return collect.OrderByDescending(x => property);
-
-        return collect.OrderBy(x => property);
+        return source.Provider.CreateQuery<T>(expression);
     }
 }

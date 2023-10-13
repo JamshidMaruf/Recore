@@ -8,7 +8,6 @@ using Recore.Domain.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Recore.Domain.Entities.Orders;
 
-
 namespace Recore.Service.Services;
 
 public class OrderService : IOrderService

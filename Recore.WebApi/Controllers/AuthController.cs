@@ -7,17 +7,29 @@ namespace Recore.WebApi.Controllers;
 public class AuthController : BaseController
 {
     private readonly IAuthService authService;
-	public AuthController(IAuthService authService)
-	{
-		this.authService = authService;
-	}
+	private readonly IUserService userService;
+    public AuthController(IAuthService authService, IUserService userService)
+    {
+        this.authService = authService;
+        this.userService = userService;
+    }
 
-	[HttpPost("login")]
+    [HttpPost("login")]
 	public async Task<IActionResult> GenerateTokenAsync(string phone, string password)
-		=> Ok(new Response
+	{
+		var user = await this.userService.RetrieveByPhoneAsync(phone);
+		var token = await this.authService.GenerateTokenAsync(phone, password);
+
+        return Ok(new Response
 		{
 			StatusCode = 200,
 			Message = "Success",
-			Data = await this.authService.GenerateTokenAsync(phone, password)
+			Data = new UserResponse
+			{
+				User = user,
+				Token = token
+			}
 		});
+
+	}
 }

@@ -10,6 +10,7 @@ public interface IUserService
     ValueTask<UserResultDto> ModifyAsync(UserUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<UserResultDto> RetrieveByIdAsync(long id);
+    ValueTask<UserResultDto> RetrieveByPhoneAsync(string phone);
     ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params,Filter filter, string search = null);
     ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync();
     ValueTask<UserResultDto> UpgradeRoleAsync(long id, UserRole role);

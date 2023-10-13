@@ -62,4 +62,13 @@ public class InventoriesController : BaseController
             Message = "Success",
             Data = await this.inventoryService.RetrieveAllAsync()
         });
+
+    [HttpGet("get-stock/{productId:long}")]
+    public async ValueTask<IActionResult> GetStockAsync(long productId)
+       => Ok(new Response
+       {
+           StatusCode = 200,
+           Message = "Success",
+           Data = await this.inventoryService.RetrieveStockAsync(productId)
+       });
 }

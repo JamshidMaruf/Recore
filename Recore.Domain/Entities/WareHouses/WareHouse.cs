@@ -1,8 +1,8 @@
 ﻿using Recore.Domain.Commons;
 
-namespace Recore.Domain.Entities.WareHouses;
+namespace Recore.Domain.Entities.Warehouses;
 
-public class WareHouse : Auditable
+public class Warehouse : Auditable
 {
 	public string Name { get; set; }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Recore.Domain.Entities.Orders;
 using Recore.Domain.Entities.Bonuses;
 using Recore.Domain.Entities.Settings;
-using Recore.Domain.Entities.WareHouses;
+using Recore.Domain.Entities.Warehouses;
 
 namespace Recore.Service.Services;
 
@@ -21,7 +21,7 @@ public class CheckoutService : ICheckoutService
 	private readonly ICartItemService cartItemService;
 	private readonly IRepository<Bonus> bonusRepository;
 	private readonly IRepository<OrderItem> orderItemRepository;
-	private readonly IRepository<WareHouse> warehouseRepository;
+	private readonly IRepository<Warehouse> warehouseRepository;
 	private readonly IRepository<BonusSetting> banusSettingRepository;
 	public CheckoutService(
 		IMapper mapper,
@@ -31,7 +31,7 @@ public class CheckoutService : ICheckoutService
 		ICartItemService cartItemService,
 		IRepository<Bonus> bonusRepository,
 		IRepository<OrderItem> orderItemRepository,
-		IRepository<WareHouse> warehouseRepository,
+		IRepository<Warehouse> warehouseRepository,
 		IRepository<BonusSetting> banusSettingRepository)
 	{
 		this.mapper = mapper;

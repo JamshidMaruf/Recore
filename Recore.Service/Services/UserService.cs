@@ -107,4 +107,13 @@ public class UserService : IUserService
 		var result = this.mapper.Map<UserResultDto>(existUser);
 		return result;
 	}
+
+    public async ValueTask<UserResultDto> RetrieveByPhoneAsync(string phone)
+    {
+        User existUser = await this.userRepository.SelectAsync(user => user.Phone.Equals(phone))
+            ?? throw new NotFoundException($"This user is not found with phone = {phone}");
+        
+        var result = this.mapper.Map<UserResultDto>(existUser);
+        return result;
+    }
 }

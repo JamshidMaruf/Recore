@@ -1,29 +1,31 @@
-﻿using System.Text;
+﻿using AutoMapper;
+using System.Text;
 using Recore.Service.Helpers;
 using System.Security.Claims;
 using Recore.Service.Exceptions;
 using Recore.Service.Interfaces;
 using Recore.Data.IRepositories;
+using Recore.Service.DTOs.Users;
 using Recore.Domain.Entities.Users;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
-
-
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Configuration;
 
 namespace Recore.Service.Services;
 
 public class AuthService : IAuthService
 {
+	private readonly IMapper mapper;
 	private readonly IConfiguration configuration;
     private readonly IRepository<User > userRepository;
-	public AuthService(IRepository<User> userRepository, IConfiguration configuration)
-	{
-		this.configuration = configuration;
-		this.userRepository = userRepository;
-	}
+    public AuthService(IRepository<User> userRepository, IConfiguration configuration, IMapper mapper)
+    {
+        this.configuration = configuration;
+        this.userRepository = userRepository;
+        this.mapper = mapper;
+    }
 
-	public async ValueTask<string> GenerateTokenAsync(string phone, string originalPassword)
+    public async ValueTask<string> GenerateTokenAsync(string phone, string originalPassword)
 	{
 		var user = await this.userRepository.SelectAsync(u => u.Phone.Equals(phone));
 		if (user is null)
@@ -47,7 +49,8 @@ public class AuthService : IAuthService
 			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
 		};
 		var token = tokenHandler.CreateToken(tokenDescriptor);
-
-        return tokenHandler.WriteToken(token);
+		var userResult = this.mapper.Map<UserResultDto>(user);
+		
+		return tokenHandler.WriteToken(token);
 	}
 }

@@ -6,4 +6,5 @@ public class InventoryUpdateDto
     public double Price { get; set; }
     public long Quantity { get; set; }
     public long ProductId { get; set; }
+    public long WarehouseId { get; set; }
 }

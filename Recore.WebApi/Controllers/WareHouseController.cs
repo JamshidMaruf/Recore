@@ -4,14 +4,12 @@ using Recore.Service.Interfaces;
 using Recore.Domain.Configurations;
 using Recore.Service.DTOs.WareHouses;
 
-
-
 namespace Recore.WebApi.Controllers
 {
-	public class WareHouseController : BaseController
+	public class WarehouseController : BaseController
 	{
-		private readonly IWareHouseService wareHouseService;
-		public WareHouseController(IWareHouseService wareHouseService)
+		private readonly IWarehouseService wareHouseService;
+		public WarehouseController(IWarehouseService wareHouseService)
 		{
 			this.wareHouseService = wareHouseService;
 		}

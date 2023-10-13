@@ -10,8 +10,8 @@ public class InventoryLogResultDto
     public double Price { get; set; }
     public long Quantity { get; set; }
     public DateTime OperationDate { get; set; }
-    public string? Location { get; set; }
+    public string Location { get; set; }
     public OrderResultDto Order { get; set; }
     public ProductResultDto Product { get; set; }
-    public WareHouseResultDto WareHouse { get; set; }
+    public WarehouseResultDto Warehouse { get; set; }
 }
